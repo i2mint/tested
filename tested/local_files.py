@@ -24,7 +24,7 @@ from typing import Optional
 from pathlib import Path
 
 file_sep = os.path.sep
-DFLT_SUBPATH = "tempdir"
+DFLT_SUBPATH = 'tempdir'
 
 
 def non_empty_tail(path):
@@ -142,8 +142,8 @@ def temp_dirpath(
 
 
 def temp_filepath(
-    filename="temp_file",
-    subdir="temp_filepaths/",
+    filename='temp_file',
+    subdir='temp_filepaths/',
     ensure_containing_dirs_exist=True,
     ensure_file_does_not_exist=False,
 ):
