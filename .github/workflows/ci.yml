@@ -28,7 +28,7 @@ jobs:
       - name: Format source code
         run: black --line-length=79 .
 
-      # Documentation on "enable" codes:
+      # Documentation on "enable" codes here:
       #   http://pylint.pycqa.org/en/latest/technical_reference/features.html#basic-checker-messages
       # C0114: missing-module-docstring
       # C0115: missing-class-docstring
