@@ -37,6 +37,15 @@ def train_test_split_keys(
 ):
     """Split keys into train and test lists.
 
+    The train_keys and test_keys are disjoint and taken from keys.
+
+    Specifying key_to_tag (a function or iterable) ensures that tags will be
+    well distributed in both train and test.
+
+    Specifying key_to_group (a function or iterable) ensures **on the contrary**
+    that keys of a same group will be entirely in train **or (exclusive)** in
+    test -- not both.
+
     :param keys: keys to be split
     :param key_to_tag: keys-aligned iterable of tags (a.k.a y/classes in
     sklearn speak) or function to compute these from keys
