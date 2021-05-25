@@ -2,22 +2,44 @@
 Testing utils for ML
 """
 
-
-from typing import Iterable, Optional, Callable
+from typing import Iterable, Callable, Union, Sized
 from sklearn.model_selection import GroupShuffleSplit
 from i2.signatures import call_forgivingly
 
 
+def keys_aligned_list(iterable_spec, keys):
+    """
+
+    :param iterable_spec:
+    :param keys:
+    :return:
+    """
+    if iterable_spec is None:
+        return None
+    elif isinstance(iterable_spec, Callable):
+        return list(map(iterable_spec, keys))
+    elif isinstance(iterable_spec, Iterable):
+        iterable_spec = list(iterable_spec)
+        assert len(iterable_spec) == len(keys)
+        return iterable_spec
+
+
 def train_test_split_keys(
     keys: Iterable,
-    key_to_tag: Optional[Callable] = None,
-    key_to_group: Optional[Callable] = None,
+    key_to_tag: Union[Callable, Iterable, None] = None,
+    key_to_group: Union[Callable, Iterable, None] = None,
     test_size=None,
     train_size=None,
     random_state=None,
     n_splits=1,
 ):
-    """
+    """Split keys into train and test lists.
+
+    :param keys: keys to be split
+    :param key_to_tag: keys-aligned iterable of tags (a.k.a y/classes in
+    sklearn speak) or function to compute these from keys
+    :param key_to_group: keys-aligned iterable of groups or function to compute
+    these from keys
 
     >>> keys = range(100)
     >>> def mod5(x):
@@ -45,14 +67,8 @@ def train_test_split_keys(
     )  # calls GroupShuffleSplit on relevant inputs
 
     X = list(keys)
-
-    y = None
-    if key_to_tag is not None:
-        y = list(map(key_to_tag, keys))
-
-    groups = None
-    if key_to_group is not None:
-        groups = list(map(key_to_group, keys))
+    y = keys_aligned_list(key_to_tag, keys)
+    groups = keys_aligned_list(key_to_group, keys)
 
     n = splitter.get_n_splits(X, y, groups)
     if n == 1:
