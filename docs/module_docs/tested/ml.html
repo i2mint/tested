@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>tested.ml &#8212; tested 0.1.5 documentation</title>
+    <title>tested.ml &#8212; tested 0.1.6 documentation</title>
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
@@ -68,26 +68,31 @@
 </dl>
 <p>sklearn speak) or function to compute these from keys
 :param key_to_group: keys-aligned iterable of groups or function to compute
-these from keys</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">keys</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+these from keys
+:return a train_keys, test_keys pair (all elements of keys) if n_splits=1,
+and a generator of such pairs if not.</p>
+<p>Note that in the doctest below, we take keys=[7, 14, 21, …] to show that
+it’s not about [0, 1, 2, …] indices only, but ANY keys
+(even non numerical – like filepaths, DB selectors, etc.)</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">keys</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span> <span class="o">+</span> <span class="mi">100</span> <span class="o">*</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>  <span class="c1"># [7, 14, 21, ..., 700]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">mod5</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">5</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">train_idx</span><span class="p">,</span> <span class="n">test_idx</span> <span class="o">=</span> <span class="n">train_test_split_keys</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">key_to_group</span><span class="o">=</span><span class="n">mod5</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">train_keys</span><span class="p">,</span> <span class="n">test_keys</span> <span class="o">=</span> <span class="n">train_test_split_keys</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">key_to_group</span><span class="o">=</span><span class="n">mod5</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">train_size</span><span class="o">=</span><span class="mf">.5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Observe here that though <cite>train_size=.5</cite>, the proportion is not 50/50.
 That’s because the group constraint, imposed by the key_to_group argument
 produces only 5 groups.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">train_idx</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">test_idx</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">train_keys</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">test_keys</span><span class="p">)</span>
 <span class="go">(40, 60)</span>
 </pre></div>
 </div>
 <p>But especially, see that though there’s a lot of train and test indices,
 within train, there’s only 2 unique groups (all 0 or 3 modulo 5)
 and only 3 unique groups (1, 2, 4 modulo 5) within test indices.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">mod5</span><span class="p">,</span> <span class="n">train_idx</span><span class="p">))</span> <span class="o">==</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">mod5</span><span class="p">,</span> <span class="n">test_idx</span><span class="p">))</span> <span class="o">==</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">}</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">mod5</span><span class="p">,</span> <span class="n">train_keys</span><span class="p">))</span> <span class="o">==</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">mod5</span><span class="p">,</span> <span class="n">test_keys</span><span class="p">))</span> <span class="o">==</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">}</span>
 </pre></div>
 </div>
 </dd></dl>
