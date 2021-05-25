@@ -3,6 +3,8 @@ Testing utils for ML
 """
 
 from typing import Iterable, Callable, Union, Sized
+
+import numpy as np
 from sklearn.model_selection import GroupShuffleSplit
 from i2.signatures import call_forgivingly
 
@@ -40,38 +42,50 @@ def train_test_split_keys(
     sklearn speak) or function to compute these from keys
     :param key_to_group: keys-aligned iterable of groups or function to compute
     these from keys
+    :return a train_keys, test_keys pair (all elements of keys) if n_splits=1,
+    and a generator of such pairs if not.
 
-    >>> keys = range(100)
+    Note that in the doctest below, we take keys=[7, 14, 21, ...] to show that
+    it's not about [0, 1, 2, ...] indices only, but ANY keys
+    (even non numerical -- like filepaths, DB selectors, etc.)
+
+    >>> keys = range(7, 7 + 100 * 7, 7)  # [7, 14, 21, ..., 700]
     >>> def mod5(x):
     ...     return x % 5
-    >>> train_idx, test_idx = train_test_split_keys(keys, key_to_group=mod5,
+    >>> train_keys, test_keys = train_test_split_keys(keys, key_to_group=mod5,
     ...     train_size=.5, random_state=42)
 
     Observe here that though `train_size=.5`, the proportion is not 50/50.
     That's because the group constraint, imposed by the key_to_group argument
     produces only 5 groups.
 
-    >>> len(train_idx), len(test_idx)
+    >>> len(train_keys), len(test_keys)
     (40, 60)
 
     But especially, see that though there's a lot of train and test indices,
     within train, there's only 2 unique groups (all 0 or 3 modulo 5)
     and only 3 unique groups (1, 2, 4 modulo 5) within test indices.
 
-    >>> assert set(map(mod5, train_idx)) == {0, 3}
-    >>> assert set(map(mod5, test_idx)) == {1, 2, 4}
+    >>> assert set(map(mod5, train_keys)) == {0, 3}
+    >>> assert set(map(mod5, test_keys)) == {1, 2, 4}
 
     """
     splitter = call_forgivingly(
         GroupShuffleSplit, **locals()
     )  # calls GroupShuffleSplit on relevant inputs
 
-    X = list(keys)
+    keys = np.array(list(keys))
     y = keys_aligned_list(key_to_tag, keys)
     groups = keys_aligned_list(key_to_group, keys)
 
-    n = splitter.get_n_splits(X, y, groups)
+    n = splitter.get_n_splits(keys, y, groups)
     if n == 1:
-        return next(splitter.split(X, y, groups))
+        train_idx, test_idx = next(splitter.split(keys, y, groups))
+        return keys[train_idx], keys[test_idx]
     else:
-        return splitter.split(X, y, groups)
+
+        def gen():
+            for train_idx, test_idx in splitter.split(keys, y, groups):
+                yield keys[train_idx], keys[test_idx]
+
+        return gen()
