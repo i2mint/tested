@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>tested.ml &#8212; tested 0.1.6 documentation</title>
+    <title>tested.ml &#8212; tested 0.1.7 documentation</title>
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
@@ -71,6 +71,15 @@
     <span class="n">n_splits</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
 <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Split keys into train and test lists.</span>
+
+<span class="sd">    The train_keys and test_keys are disjoint and taken from keys.</span>
+
+<span class="sd">    Specifying key_to_tag (a function or iterable) ensures that tags will be</span>
+<span class="sd">    well distributed in both train and test.</span>
+
+<span class="sd">    Specifying key_to_group (a function or iterable) ensures **on the contrary**</span>
+<span class="sd">    that keys of a same group will be entirely in train **or (exclusive)** in</span>
+<span class="sd">    test -- not both.</span>
 
 <span class="sd">    :param keys: keys to be split</span>
 <span class="sd">    :param key_to_tag: keys-aligned iterable of tags (a.k.a y/classes in</span>
