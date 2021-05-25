@@ -4,4 +4,5 @@
 
    module_docs/tested
    module_docs/tested/local_files
+   module_docs/tested/ml
    module_docs/tested/multiple
