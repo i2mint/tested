@@ -17,8 +17,7 @@ def ensure_path(module):
 
 
 def multiple_pytests_commands(
-    *modules_to_test,
-    options: str = '--doctest-modules --quiet --disable-warnings'
+    *modules_to_test, options: str = '--doctest-modules --quiet --disable-warnings'
 ):
     template = 'pytest ' + options + ' {path}; '
     for path in map(ensure_path, modules_to_test):
@@ -26,12 +25,9 @@ def multiple_pytests_commands(
 
 
 def multiple_pytests_command_str(
-    *modules_to_test,
-    options: str = '--doctest-modules --quiet --disable-warnings'
+    *modules_to_test, options: str = '--doctest-modules --quiet --disable-warnings'
 ):
-    return ''.join(
-        multiple_pytests_commands(*modules_to_test, options=options)
-    )
+    return ''.join(multiple_pytests_commands(*modules_to_test, options=options))
 
 
 def run_multiple_pytests(
@@ -39,9 +35,7 @@ def run_multiple_pytests(
     options: str = '--doctest-modules --quiet --disable-warnings',
     dry_run=False
 ):
-    for command in multiple_pytests_commands(
-        *modules_to_test, options=options
-    ):
+    for command in multiple_pytests_commands(*modules_to_test, options=options):
         print(command)
         if not dry_run:
             r = subprocess.check_output(command, shell=True)
