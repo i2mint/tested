@@ -6,3 +6,4 @@
    module_docs/tested/local_files
    module_docs/tested/ml
    module_docs/tested/multiple
+   module_docs/tested/notebooks

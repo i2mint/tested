@@ -25,18 +25,19 @@ from typing import Iterable, Any
 
 class CellFuncs:
     """A collection of cell funcs to use with InOut.cells_2_str"""
+
     @staticmethod
-    def out_as_comment(in_, out_, prefix="# Out: "):
+    def out_as_comment(in_, out_, prefix='# Out: '):
         """Insert out_ cell as comment after in_"""
         if out_ is not None:
             out_str = str(out_)
-            if "\n" not in out_str:
+            if '\n' not in out_str:
                 out_str = prefix + out_str
             else:
                 out_str = (
-                    prefix + "\n" + "\n".join(("# " + x for x in out_str.split("\n")))
+                    prefix + '\n' + '\n'.join(('# ' + x for x in out_str.split('\n')))
                 )
-            return in_ + "\n" + out_str
+            return in_ + '\n' + out_str
         else:
             return in_
 
@@ -62,13 +63,13 @@ class CellFuncs:
 
         """
         if out_ is not None:
-            command = f"({in_}) == ({out_})\n"
+            command = f'({in_}) == ({out_})\n'
             try:
                 bool_ = eval(command, globals_, locals_)
             except Exception:
                 bool_ = False
             if bool_:
-                return f"assert {command}"
+                return f'assert {command}'
             else:
                 return fallback(in_, out_)
         else:
@@ -164,7 +165,7 @@ class InOut:
                     i for i, (in_, out_) in enumerate(in_outs) if in_out_filt(in_, out_)
                 )
             else:
-                raise ValueError(f"A cell filter must have 1 or 2 required arguments")
+                raise ValueError(f'A cell filter must have 1 or 2 required arguments')
         elif isinstance(k, Iterable):
             yield from k
 
@@ -172,7 +173,7 @@ class InOut:
         return idx in self.In
 
     @staticmethod
-    def cells_2_str(cells_list, cell_func=CellFuncs.out_as_comment, sep="\n"):
+    def cells_2_str(cells_list, cell_func=CellFuncs.out_as_comment, sep='\n'):
         """Get a string out of a list of cells.
         Probably the main utility of InOut.
         """
@@ -189,4 +190,4 @@ class InOut:
         ```
 
         """
-        return cls(_locals["In"], _locals["Out"])
+        return cls(_locals['In'], _locals['Out'])
