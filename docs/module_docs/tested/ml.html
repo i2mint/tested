@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>tested.ml &#8212; tested 0.1.10 documentation</title>
+    <title>tested.ml &#8212; tested 0.1.11 documentation</title>
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
@@ -78,6 +78,17 @@ and what function to apply to the two results to compute the final score.</p>
 <p>But the user doesn’t HAVE to specify all that usually (if the learners are
 all proper sklearn estimators) – instead, the function will try to figure
 out defaults for any of these if not given.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span> <span class="k">as</span> <span class="n">Regressor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">RidgeClassifier</span> <span class="k">as</span> <span class="n">Classifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span> <span class="k">as</span> <span class="n">UnsupervisedTransformer</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tested.ml</span> <span class="kn">import</span> <span class="n">learner_equivalence</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">learner</span> <span class="ow">in</span> <span class="p">(</span><span class="n">Regressor</span><span class="p">,</span> <span class="n">Classifier</span><span class="p">,</span> <span class="n">UnsupervisedTransformer</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="c1"># assert that a learner is equivalent to itself</span>
+<span class="gp">... </span>    <span class="k">assert</span> <span class="n">learner_equivalence</span><span class="p">(</span><span class="n">learner</span><span class="p">,</span> <span class="n">learner</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
