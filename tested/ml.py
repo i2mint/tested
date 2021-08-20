@@ -33,6 +33,16 @@ def learner_equivalence(
     But the user doesn't HAVE to specify all that usually (if the learners are
     all proper sklearn estimators) -- instead, the function will try to figure
     out defaults for any of these if not given.
+
+    >>> from sklearn.linear_model import LinearRegression as Regressor
+    >>> from sklearn.linear_model import RidgeClassifier as Classifier
+    >>> from sklearn.decomposition import PCA as UnsupervisedTransformer
+    >>>
+    >>> from tested.ml import learner_equivalence
+    >>>
+    >>> for learner in (Regressor, Classifier, UnsupervisedTransformer):
+    ...     # assert that a learner is equivalent to itself
+    ...     assert learner_equivalence(learner, learner)
     """
     # preprocess inputs
     learner_1 = get_learner(learner_1)
