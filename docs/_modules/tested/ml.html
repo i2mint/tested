@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>tested.ml &#8212; tested 0.1.10 documentation</title>
+    <title>tested.ml &#8212; tested 0.1.11 documentation</title>
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
@@ -68,6 +68,16 @@
 <span class="sd">    But the user doesn&#39;t HAVE to specify all that usually (if the learners are</span>
 <span class="sd">    all proper sklearn estimators) -- instead, the function will try to figure</span>
 <span class="sd">    out defaults for any of these if not given.</span>
+
+<span class="sd">    &gt;&gt;&gt; from sklearn.linear_model import LinearRegression as Regressor</span>
+<span class="sd">    &gt;&gt;&gt; from sklearn.linear_model import RidgeClassifier as Classifier</span>
+<span class="sd">    &gt;&gt;&gt; from sklearn.decomposition import PCA as UnsupervisedTransformer</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; from tested.ml import learner_equivalence</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; for learner in (Regressor, Classifier, UnsupervisedTransformer):</span>
+<span class="sd">    ...     # assert that a learner is equivalent to itself</span>
+<span class="sd">    ...     assert learner_equivalence(learner, learner)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># preprocess inputs</span>
     <span class="n">learner_1</span> <span class="o">=</span> <span class="n">get_learner</span><span class="p">(</span><span class="n">learner_1</span><span class="p">)</span>
