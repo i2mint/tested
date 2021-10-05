@@ -147,7 +147,13 @@ def get_model_action_and_equivalence_scorer(model_action):
 
 
 def keys_aligned_list(iterable_spec, keys):
-    """
+    """Get an iterable that is aligned with the keys iterable, and verify that it is so.
+
+    >>> keys_aligned_list(lambda x: x * 2, keys=[1, 2, 3])
+    [2, 4, 6]
+    >>> keys_aligned_list([2, 4, 6], keys=[1, 2, 3])
+    [2, 4, 6]
+    >>> assert keys_aligned_list(None, keys=[1, 2, 3]) is None
 
     :param iterable_spec:
     :param keys:
@@ -161,7 +167,8 @@ def keys_aligned_list(iterable_spec, keys):
         iterable_spec = list(iterable_spec)
         assert len(iterable_spec) == len(keys)
         return iterable_spec
-
+    else:
+        raise TypeError(f"Unknown iterable_spec type ({type(iterable_spec)}): {iterable_spec}")
 
 def train_test_split_keys(
     keys: Iterable,
@@ -223,6 +230,8 @@ def train_test_split_keys(
     keys = np.array(list(keys))
     y = keys_aligned_list(key_to_tag, keys)
     groups = keys_aligned_list(key_to_group, keys)
+    if groups is None:
+        groups = range(len(keys))
 
     n = splitter.get_n_splits(keys, y, groups)
     if n == 1:
