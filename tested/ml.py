@@ -168,7 +168,10 @@ def keys_aligned_list(iterable_spec, keys):
         assert len(iterable_spec) == len(keys)
         return iterable_spec
     else:
-        raise TypeError(f"Unknown iterable_spec type ({type(iterable_spec)}): {iterable_spec}")
+        raise TypeError(
+            f'Unknown iterable_spec type ({type(iterable_spec)}): {iterable_spec}'
+        )
+
 
 def train_test_split_keys(
     keys: Iterable,
