@@ -1,4 +1,25 @@
-"""Tools to test codecs -- i.e. serialization/deserialization pairs"""
+"""Tools to test codecs -- i.e. serialization/deserialization pairs
+
+`validate_codec`: a function to test encoder/decoder pairs.
+
+>>> from functools import partial
+>>> import json
+>>> validate_jsonability = partial(validate_codec, coder=json.dumps, decoder=json.loads)
+
+You can jsonize lists and dicts
+
+>>> assert validate_jsonability([1, 2, 3])
+>>> assert validate_jsonability({'a': 1, 'b': {'c': [1, 2, 3]}})
+
+You can't jsonize datetime objects
+
+>>> from datetime import datetime
+>>> validate_jsonability(datetime.now())
+False
+
+See `validate_codec` docs for more examples.
+
+"""
 import pickle
 
 
@@ -16,6 +37,9 @@ def encode_and_decode(obj, coder=pickle.dumps, decoder=pickle.loads):
     return decoded_obj
 
 
+# TODO: Add doctests using caught_errors
+# TODO: Discuss how the validate_codec can also solve decoding in a different env or
+#  location
 def validate_codec(
     obj,
     coder=pickle.dumps,
