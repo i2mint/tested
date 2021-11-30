@@ -50,8 +50,6 @@ def validate_codec(
     `func(42) == decoded_func(42)`.
     In that case, you would specify `command=lambda f: f(42)`.
 
-    >>> from tested.util import validate_codec, encode_and_decode
-
     To demo how `validate_codec` works, we'll import two classes, and print their
     code below. The reason we don't define them inline is because pickle can't
     be used inside a module where the type of the object to pickle is defined.
