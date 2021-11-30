@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tested.notebooks &mdash; tested 0.1.17 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/toggleprompt.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="tested.tests.objects_for_testing" href="tests/objects_for_testing.html" />
+    <link rel="prev" title="tested.multiple" href="multiple.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> tested
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../tested.html">tested</a></li>
+<li class="toctree-l1"><a class="reference internal" href="codecs.html">tested.codecs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="local_files.html">tested.local_files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ml.html">tested.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multiple.html">tested.multiple</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">tested.notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests/objects_for_testing.html">tested.tests.objects_for_testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util.html">tested.util</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">tested</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>tested.notebooks</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_docs/tested/notebooks.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-tested.notebooks">
+<span id="tested-notebooks"></span><h1>tested.notebooks<a class="headerlink" href="#module-tested.notebooks" title="Permalink to this headline">¶</a></h1>
+<p>Tools for testing with notebooks.</p>
+<p>We often test our stuff somewhere in a notebook.</p>
+<p>Since we already spent time doing that, how can we get more out of the investment
+by making our work more reusable?</p>
+<p>Ideas.</p>
+<dl class="simple">
+<dt>Gather the relevant cells and generate a string that can be pasted into a test</dt><dd><p>module/function. Problems:</p>
+</dd>
+</dl>
+<ul class="simple">
+<li><p>Getting the right environment (imports, data, etc.)</p></li>
+<li><p>asserting (can use out cells sometimes, but sometimes harder)</p></li>
+</ul>
+<p>For doctests? Change comments to markdown text and code to doctests.</p>
+<p>Links to check out:
+- <a class="reference external" href="https://semaphoreci.com/blog/test-jupyter-notebooks-with-pytest-and-nbmake">https://semaphoreci.com/blog/test-jupyter-notebooks-with-pytest-and-nbmake</a></p>
+<dl class="py class">
+<dt id="tested.notebooks.CellFuncs">
+<em class="property">class </em><code class="sig-prename descclassname">tested.notebooks.</code><code class="sig-name descname">CellFuncs</code><a class="reference internal" href="../../_modules/tested/notebooks.html#CellFuncs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tested.notebooks.CellFuncs" title="Permalink to this definition">¶</a></dt>
+<dd><p>A collection of cell funcs to use with InOut.cells_2_str</p>
+<dl class="py method">
+<dt id="tested.notebooks.CellFuncs.assertion_when_it_works">
+<em class="property">static </em><code class="sig-name descname">assertion_when_it_works</code><span class="sig-paren">(</span><em class="sig-param">in_</em>, <em class="sig-param">out_</em>, <em class="sig-param">fallback=&lt;function CellFuncs.&lt;lambda&gt;&gt;</em>, <em class="sig-param">globals_=None</em>, <em class="sig-param">locals_=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tested/notebooks.html#CellFuncs.assertion_when_it_works"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tested.notebooks.CellFuncs.assertion_when_it_works" title="Permalink to this definition">¶</a></dt>
+<dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">CellFuncs</span><span class="o">.</span><span class="n">assertion_when_it_works</span><span class="p">(</span><span class="s2">&quot;3 + 4&quot;</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="go">&#39;assert (3 + 4) == (7)\n&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">CellFuncs</span><span class="o">.</span><span class="n">assertion_when_it_works</span><span class="p">(</span><span class="s2">&quot;dict(a=1, b=2)&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+<span class="go">&quot;assert (dict(a=1, b=2)) == ({&#39;a&#39;: 1, &#39;b&#39;: 2})\n&quot;</span>
+</pre></div>
+</div>
+<p>And if the left and right are not equal when evaluated,
+by default (fallback) just the <a href="#id7"><span class="problematic" id="id8">in_</span></a> is returned</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">CellFuncs</span><span class="o">.</span><span class="n">assertion_when_it_works</span><span class="p">(</span><span class="s2">&quot;dict(a=1, b=2)&quot;</span><span class="p">,</span> <span class="s2">&quot;is not equal to this&quot;</span><span class="p">)</span>
+<span class="go">&#39;dict(a=1, b=2)&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tested.notebooks.CellFuncs.out_as_comment">
+<em class="property">static </em><code class="sig-name descname">out_as_comment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">in_</span></em>, <em class="sig-param"><span class="n">out_</span></em>, <em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">'# Out: '</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tested/notebooks.html#CellFuncs.out_as_comment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tested.notebooks.CellFuncs.out_as_comment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert <a href="#id9"><span class="problematic" id="id10">out_</span></a> cell as comment after <a href="#id11"><span class="problematic" id="id12">in_</span></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="tested.notebooks.InCellFilter">
+<em class="property">class </em><code class="sig-prename descclassname">tested.notebooks.</code><code class="sig-name descname">InCellFilter</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tested/notebooks.html#InCellFilter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tested.notebooks.InCellFilter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="tested.notebooks.InOut">
+<em class="property">class </em><code class="sig-prename descclassname">tested.notebooks.</code><code class="sig-name descname">InOut</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">In</span></em>, <em class="sig-param"><span class="n">Out</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tested/notebooks.html#InOut"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tested.notebooks.InOut" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get (in, out) pairs of cell contents.</p>
+<blockquote>
+<div><p>In a notebook, do:
+<code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">t</span> <span class="pre">=</span> <span class="pre">InOut(In,</span> <span class="pre">Out)</span>
+<span class="pre">`</span></code></p>
+<p><cite>In</cite> and <cite>Out</cite> are automatically available in a notebook.</p>
+<p>Now you can access (in, out) pairs with <cite>t[k]</cite> where <cite>k</cite> can be an integer, a slice,
+or a list/iterable of integers, or a (in, or (in, out) filter) function.</p>
+<p>Examples:</p>
+<p><a href="#id1"><span class="problematic" id="id2">``</span></a>`
+t[4]  # the (in, out) cell for idx=4</p>
+<p>print(t.cells_2_str(t[10:20])</p>
+<dl class="simple">
+<dt>print(t.cells_2_str(t[[77, 86, 99, 87, 89]],</dt><dd><p>cell_func=CellFuncs.assertion_when_it_works))</p>
+</dd>
+</dl>
+<p># number of <a href="#id13"><span class="problematic" id="id14">in_</span></a> cells that have exactly one line
+len(t[lambda <a href="#id15"><span class="problematic" id="id16">in_</span></a>: len(<a href="#id17"><span class="problematic" id="id18">in_</span></a>.split(’</p>
+</div></blockquote>
+<p>‘)) == 1])</p>
+<blockquote>
+<div><p># number of out cells that are not None
+len(t[lambda <a href="#id19"><span class="problematic" id="id20">in_</span></a>, <a href="#id21"><span class="problematic" id="id22">out_</span></a>: <a href="#id23"><span class="problematic" id="id24">out_</span></a> is not None])
+<a href="#id3"><span class="problematic" id="id4">``</span></a><a href="#id5"><span class="problematic" id="id6">`</span></a></p>
+</div></blockquote>
+<dl class="py method">
+<dt id="tested.notebooks.InOut.cells_2_str">
+<em class="property">static </em><code class="sig-name descname">cells_2_str</code><span class="sig-paren">(</span><em class="sig-param">cells_list</em>, <em class="sig-param">cell_func=&lt;function CellFuncs.out_as_comment&gt;</em>, <em class="sig-param">sep='\n'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tested/notebooks.html#InOut.cells_2_str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tested.notebooks.InOut.cells_2_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a string out of a list of cells.
+Probably the main utility of InOut.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tested.notebooks.InOut.from_locals">
+<em class="property">classmethod </em><code class="sig-name descname">from_locals</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_locals</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tested/notebooks.html#InOut.from_locals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tested.notebooks.InOut.from_locals" title="Permalink to this definition">¶</a></dt>
+<dd><p>A convenience function to get an InOut.</p>
+<p>Pretty much only one way to call it, from your notebook, do this:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">t</span> <span class="pre">=</span> <span class="pre">InOut(locals())</span>
+<span class="pre">`</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="tested.notebooks.InOutCellFilter">
+<em class="property">class </em><code class="sig-prename descclassname">tested.notebooks.</code><code class="sig-name descname">InOutCellFilter</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tested/notebooks.html#InOutCellFilter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tested.notebooks.InOutCellFilter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="multiple.html" class="btn btn-neutral float-left" title="tested.multiple" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tests/objects_for_testing.html" class="btn btn-neutral float-right" title="tested.tests.objects_for_testing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright NO COPYRIGHT.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

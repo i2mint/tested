@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tested.codecs &mdash; tested 0.1.17 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/toggleprompt.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="tested.local_files" href="local_files.html" />
+    <link rel="prev" title="tested" href="../tested.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> tested
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../tested.html">tested</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">tested.codecs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="local_files.html">tested.local_files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ml.html">tested.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multiple.html">tested.multiple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">tested.notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests/objects_for_testing.html">tested.tests.objects_for_testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util.html">tested.util</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">tested</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>tested.codecs</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_docs/tested/codecs.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-tested.codecs">
+<span id="tested-codecs"></span><h1>tested.codecs<a class="headerlink" href="#module-tested.codecs" title="Permalink to this headline">¶</a></h1>
+<p>Tools to test codecs – i.e. serialization/deserialization pairs</p>
+<p><cite>validate_codec</cite>: a function to test encoder/decoder pairs.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">json</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">validate_jsonability</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">validate_codec</span><span class="p">,</span> <span class="n">coder</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">,</span> <span class="n">decoder</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can jsonize lists and dicts</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">validate_jsonability</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">validate_jsonability</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]}})</span>
+</pre></div>
+</div>
+<p>You can’t jsonize datetime objects</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">validate_jsonability</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">())</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>See <cite>validate_codec</cite> docs for more examples.</p>
+<dl class="py function">
+<dt id="tested.codecs.validate_codec">
+<code class="sig-prename descclassname">tested.codecs.</code><code class="sig-name descname">validate_codec</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">coder=&lt;built-in function dumps&gt;</em>, <em class="sig-param">decoder=&lt;built-in function loads&gt;</em>, <em class="sig-param">command=&lt;function return_object_itself&gt;</em>, <em class="sig-param">comparison=&lt;function always_true&gt;</em>, <em class="sig-param">caught_errors=(&lt;class 'Exception'&gt;</em>, <em class="sig-param">)</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tested/codecs.html#validate_codec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tested.codecs.validate_codec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate a coder/decoder pair.</p>
+<p>Encodes the input <cite>obj</cite> with <cite>coder</cite>, then <cite>decodes</cite> the encoded object,
+returning <cite>comparison(command(obj), command(decoded_obj))</cite>.
+If an exception is raised, that is caught by <cite>caught_errors</cite>, <cite>False</cite> will be
+returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> – Object that should be serialized/encoded then deserialized/decoded</p></li>
+<li><p><strong>coder</strong> – The serializer.</p></li>
+<li><p><strong>decoder</strong> – The deserializer.</p></li>
+<li><p><strong>command</strong> – Function to apply to both obj and decoded_obj before comparing</p></li>
+<li><p><strong>comparison</strong> – Function that will be called on (obj, decoded_obj)</p></li>
+<li><p><strong>caught_errors</strong> – The exception types to catch (and return False)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Whatever comparison returns</p>
+</dd>
+</dl>
+<p>Note: The <cite>command</cite> function is not necessary since a custom comparison function
+could be made to apply such a function to the obj and decoded_obj before comparing.
+We provide command though, because it allows the user to set a comparison function,
+but vary what is being compared.
+For instance, we may want to use <cite>==</cite> (i.e. <cite>operator.eq</cite>) as our comparison
+function, but apply this not to the objects themselves, but to some results
+of operating with or on them.
+For example, say you may not want to compare <cite>func == decoded_func</cite>, but instead
+<cite>func(42) == decoded_func(42)</cite>.
+In that case, you would specify <cite>command=lambda f: f(42)</cite>.</p>
+<p>To demo how <cite>validate_codec</cite> works, we’ll import two classes, and print their
+code below. The reason we don’t define them inline is because pickle can’t
+be used inside a module where the type of the object to pickle is defined.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tested.tests.objects_for_testing</span> <span class="kn">import</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">inspect</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">getsource</span><span class="p">(</span><span class="n">A</span><span class="p">))</span>
+<span class="go">class A:</span>
+<span class="go">    def __init__(self, x):</span>
+<span class="go">        self.x = x</span>
+
+<span class="go">    def __add__(self, other):</span>
+<span class="go">        return self.x + other</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">getsource</span><span class="p">(</span><span class="n">B</span><span class="p">))</span>
+<span class="go">class B(A):</span>
+<span class="go">    def __eq__(self, other):</span>
+<span class="go">        return self.x == other.x</span>
+</pre></div>
+</div>
+<p>Let’s make a few objects to test with:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a_tuple</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">B</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Out-of-the-box, the only thing that <cite>validate_codec</cite> validates, is the ability of
+a coder/decoder pair to serialize, then deserialize an object.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">validate_codec</span><span class="p">(</span><span class="n">a_list</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">validate_codec</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The default <cite>coder</cite> and <cite>decoder</cite> are <cite>pickle.dumps</cite> and <cite>pickle.loads</cite>
+respectively, so you wouldn’t be able to pickle a lambda function, for instance:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="ow">not</span> <span class="n">validate_codec</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The real usage of <cite>validate_codec</cite> though is to use <cite>functools.partial</cite> to fix the
+arguments to those that make sense for the codec and objects to be coded and decoded.</p>
+<p>Say for example, that we want to use equality <cite>==</cite> to compare the original object
+with the decoded one. In that case, we’d do this:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">eq</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">equality_validator</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">validate_codec</span><span class="p">,</span> <span class="n">comparison</span><span class="o">=</span><span class="n">eq</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">equality_validator</span><span class="p">(</span><span class="n">a_list</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="ow">not</span> <span class="n">equality_validator</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">equality_validator</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The instance <cite>a</cite> of <cite>A</cite> didn’t pass validation because by default, python objects
+compare on the basis of their <cite>id</cite>, which is a low level unique reference (
+integer) of an object.
+It worked with <cite>a_list</cite> and with <cite>b</cite> because these have their own definition of
+equality that bipasses <cite>id</cite>.</p>
+<p>If we wanted to force the comparison based on <cite>id</cite> anyway, we could do it like this:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">id_equality_validator</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">validate_codec</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="nb">id</span><span class="p">,</span> <span class="n">comparison</span><span class="o">=</span><span class="n">eq</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="ow">not</span> <span class="n">id_equality_validator</span><span class="p">(</span><span class="n">a_list</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="ow">not</span> <span class="n">id_equality_validator</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="ow">not</span> <span class="n">id_equality_validator</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <cite>id</cite>-based comparison above was just meant for illustration.
+I can’t think of any use case where it would be useful.
+On the other hand, the <cite>command</cite> argument has it’s uses.</p>
+<p>Here is now the crux of the matter: Functional equivalence.</p>
+<p>No matter what anyone tells you, objects are useless in and of themselves.
+It’s their use, their behavior, that matters.
+Therefore, when you decode an object, you’re not really looking for the exact
+same object that was encoded.
+We’ve seen that in fact, from the point of view of low level concerns such as
+the <cite>id</cite>, you’ll never get the exact same object.
+What you should expect to get though, is some equivalence from the behavior point
+of view.
+That is, you need to be able to rely on getting “the same” results when operating
+with the decoded object.</p>
+<p>This is where <cite>command</cite> and <cite>comparison</cite> come in.</p>
+<p><cite>command</cite> specifies what operation(s) you want to be able to do on the decoded
+object, and <cite>comparison</cite> specifies how you compare the results of carrying out
+those same operations on the original object and the decoded one.</p>
+<p>Note that <cite>A</cite> (and therefore <cite>B</cite>) have been defined so that we can sum instances
+with a number:
+&gt;&gt;&gt; a + 1
+43</p>
+<p>If what I really want out of my <cite>A</cite> and <cite>B</cite> instances is to add a number to it,
+I can validate that like so:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">equivalence_validator</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">validate_codec</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">command</span><span class="o">=</span><span class="k">lambda</span> <span class="n">obj</span><span class="p">:</span> <span class="n">obj</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">comparison</span><span class="o">=</span><span class="n">eq</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">equivalence_validator</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">equivalence_validator</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>So far, we’ve only used the default <cite>pickle</cite> encoder and decoders.
+Let’s try out another pair.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">array</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">struct</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">float_encoder</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="s1">&#39;f&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">a</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">float_decoder</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">n</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">calcsize</span><span class="p">(</span><span class="s1">&#39;f&#39;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="s1">&#39;f&#39;</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a_tuple</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">an_array_of_floats</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">ArrayType</span><span class="p">(</span><span class="s1">&#39;f&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">an_array_of_doubles</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">ArrayType</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">float_validator</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">validate_codec</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">coder</span><span class="o">=</span><span class="n">float_encoder</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">decoder</span><span class="o">=</span><span class="n">float_decoder</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">comparison</span><span class="o">=</span><span class="n">eq</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">float_validator</span><span class="p">(</span><span class="n">a_list</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="ow">not</span> <span class="n">float_validator</span><span class="p">(</span><span class="n">a_tuple</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="ow">not</span> <span class="n">float_validator</span><span class="p">(</span><span class="n">an_array_of_floats</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># The reason why `a_tuple` and `an_array_of_floats` don&#39;t validate is because</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># array_codec decodes all iterables as lists, which are then compared to</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># a tuple and an array (different types)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Instead of using eq here, we should compare all elements individually:</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">all_equal</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">all</span><span class="p">(</span><span class="n">xi</span> <span class="o">==</span> <span class="n">yi</span> <span class="k">for</span> <span class="n">xi</span><span class="p">,</span> <span class="n">yi</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">float_validator_2</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">float_validator</span><span class="p">,</span> <span class="n">comparison</span><span class="o">=</span><span class="n">all_equal</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">float_validator_2</span><span class="p">(</span><span class="n">a_list</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">float_validator_2</span><span class="p">(</span><span class="n">a_tuple</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">float_validator_2</span><span class="p">(</span><span class="n">an_array_of_floats</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># but...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="ow">not</span> <span class="n">float_validator_2</span><span class="p">(</span><span class="n">an_array_of_doubles</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Why?</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Because we&#39;re using &#39;f&#39; formatting spec, which is a float with 4 bytes</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># yet the array is uses &#39;d&#39; formatting (for doubles)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># It&#39;s easy to get into a... pickle of comparison comparing floats to doubles.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># We should probably use math.isclose to compare instead...</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">math</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">all_are_close</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">all</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">)</span> <span class="k">for</span> <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">float_validator_3</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">float_validator</span><span class="p">,</span> <span class="n">comparison</span><span class="o">=</span><span class="n">all_are_close</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">float_validator_3</span><span class="p">(</span><span class="n">a_list</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">float_validator_3</span><span class="p">(</span><span class="n">a_tuple</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">float_validator_3</span><span class="p">(</span><span class="n">an_array_of_floats</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">float_validator_3</span><span class="p">(</span><span class="n">an_array_of_doubles</span><span class="p">)</span>  <span class="c1"># works with doubles now!</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../tested.html" class="btn btn-neutral float-left" title="tested" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="local_files.html" class="btn btn-neutral float-right" title="tested.local_files" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright NO COPYRIGHT.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

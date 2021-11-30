@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tested.notebooks &mdash; tested 0.1.17 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/toggleprompt.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> tested
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/tested.html">tested</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/tested/codecs.html">tested.codecs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/tested/local_files.html">tested.local_files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/tested/ml.html">tested.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/tested/multiple.html">tested.multiple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/tested/notebooks.html">tested.notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/tested/tests/objects_for_testing.html">tested.tests.objects_for_testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/tested/util.html">tested.util</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">tested</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>tested.notebooks</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for tested.notebooks</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Tools for testing with notebooks.</span>
+
+<span class="sd">We often test our stuff somewhere in a notebook.</span>
+
+<span class="sd">Since we already spent time doing that, how can we get more out of the investment</span>
+<span class="sd">by making our work more reusable?</span>
+
+<span class="sd">Ideas.</span>
+
+<span class="sd">Gather the relevant cells and generate a string that can be pasted into a test</span>
+<span class="sd"> module/function. Problems:</span>
+<span class="sd">- Getting the right environment (imports, data, etc.)</span>
+<span class="sd">- asserting (can use out cells sometimes, but sometimes harder)</span>
+
+<span class="sd">For doctests? Change comments to markdown text and code to doctests.</span>
+
+<span class="sd">Links to check out:</span>
+<span class="sd">- https://semaphoreci.com/blog/test-jupyter-notebooks-with-pytest-and-nbmake</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">starmap</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Any</span>
+
+
+<div class="viewcode-block" id="CellFuncs"><a class="viewcode-back" href="../../module_docs/tested/notebooks.html#tested.notebooks.CellFuncs">[docs]</a><span class="k">class</span> <span class="nc">CellFuncs</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A collection of cell funcs to use with InOut.cells_2_str&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="CellFuncs.out_as_comment"><a class="viewcode-back" href="../../module_docs/tested/notebooks.html#tested.notebooks.CellFuncs.out_as_comment">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">out_as_comment</span><span class="p">(</span><span class="n">in_</span><span class="p">,</span> <span class="n">out_</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;# Out: &#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Insert out_ cell as comment after in_&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">out_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">out_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">out_</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">out_str</span><span class="p">:</span>
+                <span class="n">out_str</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="n">out_str</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">out_str</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="s1">&#39;# &#39;</span> <span class="o">+</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">out_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)))</span>
+                <span class="p">)</span>
+            <span class="k">return</span> <span class="n">in_</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">out_str</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">in_</span></div>
+
+<div class="viewcode-block" id="CellFuncs.assertion_when_it_works"><a class="viewcode-back" href="../../module_docs/tested/notebooks.html#tested.notebooks.CellFuncs.assertion_when_it_works">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">assertion_when_it_works</span><span class="p">(</span>
+        <span class="n">in_</span><span class="p">,</span>
+        <span class="n">out_</span><span class="p">,</span>
+        <span class="n">fallback</span><span class="o">=</span><span class="k">lambda</span> <span class="n">in_</span><span class="p">,</span> <span class="n">out_</span><span class="p">:</span> <span class="n">in_</span><span class="p">,</span>  <span class="c1"># just return None</span>
+        <span class="n">globals_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">locals_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        &gt;&gt;&gt; CellFuncs.assertion_when_it_works(&quot;3 + 4&quot;, 7)</span>
+<span class="sd">        &#39;assert (3 + 4) == (7)\n&#39;</span>
+<span class="sd">        &gt;&gt;&gt; CellFuncs.assertion_when_it_works(&quot;dict(a=1, b=2)&quot;, {&#39;a&#39;: 1, &#39;b&#39;: 2})</span>
+<span class="sd">        &quot;assert (dict(a=1, b=2)) == ({&#39;a&#39;: 1, &#39;b&#39;: 2})\n&quot;</span>
+
+<span class="sd">        And if the left and right are not equal when evaluated,</span>
+<span class="sd">        by default (fallback) just the in_ is returned</span>
+
+<span class="sd">        &gt;&gt;&gt; CellFuncs.assertion_when_it_works(&quot;dict(a=1, b=2)&quot;, &quot;is not equal to this&quot;)</span>
+<span class="sd">        &#39;dict(a=1, b=2)&#39;</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">out_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">command</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;(</span><span class="si">{</span><span class="n">in_</span><span class="si">}</span><span class="s1">) == (</span><span class="si">{</span><span class="n">out_</span><span class="si">}</span><span class="s1">)</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">bool_</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">globals_</span><span class="p">,</span> <span class="n">locals_</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="n">bool_</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="n">bool_</span><span class="p">:</span>
+                <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;assert </span><span class="si">{</span><span class="n">command</span><span class="si">}</span><span class="s1">&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">fallback</span><span class="p">(</span><span class="n">in_</span><span class="p">,</span> <span class="n">out_</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">in_</span></div></div>
+
+
+<span class="n">InCell</span> <span class="o">=</span> <span class="nb">str</span>
+<span class="n">OutCell</span> <span class="o">=</span> <span class="n">Any</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">runtime_checkable</span>
+<span class="kn">from</span> <span class="nn">i2</span> <span class="kn">import</span> <span class="n">Sig</span>
+
+
+<div class="viewcode-block" id="InCellFilter"><a class="viewcode-back" href="../../module_docs/tested/notebooks.html#tested.notebooks.InCellFilter">[docs]</a><span class="nd">@runtime_checkable</span>
+<span class="k">class</span> <span class="nc">InCellFilter</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_cell</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="InOutCellFilter"><a class="viewcode-back" href="../../module_docs/tested/notebooks.html#tested.notebooks.InOutCellFilter">[docs]</a><span class="nd">@runtime_checkable</span>
+<span class="k">class</span> <span class="nc">InOutCellFilter</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_cell</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">out_cell</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="InOut"><a class="viewcode-back" href="../../module_docs/tested/notebooks.html#tested.notebooks.InOut">[docs]</a><span class="k">class</span> <span class="nc">InOut</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Get (in, out) pairs of cell contents.</span>
+
+<span class="sd">    In a notebook, do:</span>
+<span class="sd">    ```</span>
+<span class="sd">    t = InOut(In, Out)</span>
+<span class="sd">    ```</span>
+
+<span class="sd">    `In` and `Out` are automatically available in a notebook.</span>
+
+<span class="sd">    Now you can access (in, out) pairs with `t[k]` where `k` can be an integer, a slice,</span>
+<span class="sd">    or a list/iterable of integers, or a (in, or (in, out) filter) function.</span>
+
+<span class="sd">    Examples:</span>
+
+<span class="sd">    ```</span>
+<span class="sd">    t[4]  # the (in, out) cell for idx=4</span>
+
+<span class="sd">    print(t.cells_2_str(t[10:20])</span>
+
+<span class="sd">    print(t.cells_2_str(t[[77, 86, 99, 87, 89]],</span>
+<span class="sd">            cell_func=CellFuncs.assertion_when_it_works))</span>
+
+<span class="sd">    # number of in_ cells that have exactly one line</span>
+<span class="sd">    len(t[lambda in_: len(in_.split(&#39;\n&#39;)) == 1])</span>
+
+<span class="sd">    # number of out cells that are not None</span>
+<span class="sd">    len(t[lambda in_, out_: out_ is not None])</span>
+<span class="sd">    ```</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">In</span><span class="p">,</span> <span class="n">Out</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">In</span> <span class="o">=</span> <span class="n">In</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Out</span> <span class="o">=</span> <span class="n">Out</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">In</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">Out</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">In</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">Out</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">if</span> <span class="n">idx</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">Out</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">idx_gen</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+            <span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_in_out_pairs_with_sentinel_out_when_missing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sentinel</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">in_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">In</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">Out</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="n">in_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Out</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="n">in_</span><span class="p">,</span> <span class="n">sentinel</span>
+
+    <span class="k">def</span> <span class="nf">idx_gen</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="n">k</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+            <span class="k">yield from</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">k</span><span class="o">.</span><span class="n">stop</span><span class="p">,</span> <span class="n">k</span><span class="o">.</span><span class="n">step</span> <span class="ow">or</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="p">(</span><span class="n">InCellFilter</span><span class="p">,</span> <span class="n">InOutCellFilter</span><span class="p">)):</span>
+            <span class="c1"># Note, the above ininstance check is just a &quot;is callable&quot; check!</span>
+            <span class="n">n_required_args</span> <span class="o">=</span> <span class="n">Sig</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">n_required</span>
+            <span class="k">if</span> <span class="n">n_required_args</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">in_filt</span> <span class="o">=</span> <span class="n">k</span>
+                <span class="k">yield from</span> <span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">in_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">In</span><span class="p">)</span> <span class="k">if</span> <span class="n">in_filt</span><span class="p">(</span><span class="n">in_</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="n">n_required_args</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">in_out_filt</span> <span class="o">=</span> <span class="n">k</span>
+                <span class="n">in_outs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_in_out_pairs_with_sentinel_out_when_missing</span><span class="p">()</span>
+                <span class="k">yield from</span> <span class="p">(</span>
+                    <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">in_</span><span class="p">,</span> <span class="n">out_</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">in_outs</span><span class="p">)</span> <span class="k">if</span> <span class="n">in_out_filt</span><span class="p">(</span><span class="n">in_</span><span class="p">,</span> <span class="n">out_</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;A cell filter must have 1 or 2 required arguments&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
+            <span class="k">yield from</span> <span class="n">k</span>
+
+    <span class="k">def</span> <span class="nf">index_has_an_in</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">idx</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">In</span>
+
+<div class="viewcode-block" id="InOut.cells_2_str"><a class="viewcode-back" href="../../module_docs/tested/notebooks.html#tested.notebooks.InOut.cells_2_str">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">cells_2_str</span><span class="p">(</span><span class="n">cells_list</span><span class="p">,</span> <span class="n">cell_func</span><span class="o">=</span><span class="n">CellFuncs</span><span class="o">.</span><span class="n">out_as_comment</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get a string out of a list of cells.</span>
+<span class="sd">        Probably the main utility of InOut.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">sep</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">starmap</span><span class="p">(</span><span class="n">cell_func</span><span class="p">,</span> <span class="n">cells_list</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="InOut.from_locals"><a class="viewcode-back" href="../../module_docs/tested/notebooks.html#tested.notebooks.InOut.from_locals">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_locals</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">_locals</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A convenience function to get an InOut.</span>
+
+<span class="sd">        Pretty much only one way to call it, from your notebook, do this:</span>
+
+<span class="sd">        ```</span>
+<span class="sd">        t = InOut(locals())</span>
+<span class="sd">        ```</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">_locals</span><span class="p">[</span><span class="s1">&#39;In&#39;</span><span class="p">],</span> <span class="n">_locals</span><span class="p">[</span><span class="s1">&#39;Out&#39;</span><span class="p">])</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright NO COPYRIGHT.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

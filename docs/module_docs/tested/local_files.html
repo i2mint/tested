@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tested.local_files &mdash; tested 0.1.17 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/toggleprompt.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="tested.ml" href="ml.html" />
+    <link rel="prev" title="tested.codecs" href="codecs.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> tested
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../tested.html">tested</a></li>
+<li class="toctree-l1"><a class="reference internal" href="codecs.html">tested.codecs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">tested.local_files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ml.html">tested.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multiple.html">tested.multiple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">tested.notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests/objects_for_testing.html">tested.tests.objects_for_testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util.html">tested.util</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">tested</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>tested.local_files</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_docs/tested/local_files.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-tested.local_files">
+<span id="tested-local-files"></span><h1>tested.local_files<a class="headerlink" href="#module-tested.local_files" title="Permalink to this headline">¶</a></h1>
+<p>Utils for testing with local files.</p>
+<p>Things like:</p>
+<p>Making folder paths (and ensuring things about them):</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">temp_dirpath</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>  <span class="c1"># the directory exists (by default)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">dir_is_empty</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>  <span class="c1"># ... and is empty (by default)</span>
+</pre></div>
+</div>
+<p>Making file paths (and ensuring things about them):</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">filepath</span> <span class="o">=</span> <span class="n">temp_filepath</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">containing_dirpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">containing_dirpath</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py function">
+<dt id="tested.local_files.dir_is_empty">
+<code class="sig-prename descclassname">tested.local_files.</code><code class="sig-name descname">dir_is_empty</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dirpath</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tested/local_files.html#dir_is_empty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tested.local_files.dir_is_empty" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dirpath</span> <span class="o">=</span> <span class="n">temp_dirpath</span><span class="p">(</span><span class="n">ensure_is_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dir_is_empty</span><span class="p">(</span><span class="n">dirpath</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="tested.local_files.empty_dir">
+<code class="sig-prename descclassname">tested.local_files.</code><code class="sig-name descname">empty_dir</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dirpath</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tested/local_files.html#empty_dir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tested.local_files.empty_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Empty a directory of it’s contents (and recreated the directory)
+Note: This means that the directory creation date will be now.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="tested.local_files.non_empty_tail">
+<code class="sig-prename descclassname">tested.local_files.</code><code class="sig-name descname">non_empty_tail</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tested/local_files.html#non_empty_tail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tested.local_files.non_empty_tail" title="Permalink to this definition">¶</a></dt>
+<dd><p>The tail of the path, disregarding trailing slash if present.</p>
+<p>If / is the separator, this means:</p>
+<dl class="simple">
+<dt><a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a></dt><dd><p>This/is/a/path -&gt; path
+This/is/a/path/ -&gt; path</p>
+</dd>
+</dl>
+<p><a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;This&#39;</span><span class="p">,</span> <span class="s1">&#39;is&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;path&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">non_empty_tail</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="go">&#39;path&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">non_empty_tail</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span><span class="p">)</span>
+<span class="go">&#39;path&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="tested.local_files.temp_dirpath">
+<code class="sig-prename descclassname">tested.local_files.</code><code class="sig-name descname">temp_dirpath</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">subpath</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'tempdir'</span></em>, <em class="sig-param"><span class="n">ensure_exists</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>bool<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">ensure_is_empty</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>bool<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tested/local_files.html#temp_dirpath"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tested.local_files.temp_dirpath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a fresh temporary folder path with assurances about existence and emptiness.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>subpath</strong> – The (relative) name of the folder.</p></li>
+<li><p><strong>ensure_exists</strong> – </p></li>
+<li><p><strong>ensure_is_empty</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A path (string) of a directory in a temporary</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tested.local_files</span> <span class="kn">import</span> <span class="n">temp_dirpath</span><span class="p">,</span> <span class="n">non_empty_tail</span><span class="p">,</span> <span class="n">dir_is_empty</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">temp_dirpath</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">non_empty_tail</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;tempdir&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">temp_dirpath</span><span class="p">(</span><span class="s1">&#39;your_choice_of_a_dirname&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">non_empty_tail</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;your_choice_of_a_dirname&#39;</span>  <span class="c1"># the directory name is indeed what you asked for</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>  <span class="c1"># the directory exists!</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">dir_is_empty</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>  <span class="c1"># ... and is empty</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="o">==</span> <span class="p">[]</span>  <span class="c1"># see!</span>
+</pre></div>
+</div>
+<p>Let’s write stuff in it:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pathlib</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">contents</span> <span class="o">=</span> <span class="s1">&#39;hello world!&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">p</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s1">&#39;temp_file.txt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">p</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s1">&#39;temp_file.txt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span> <span class="o">==</span> <span class="n">contents</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;temp_file.txt&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>By default <code class="docutils literal notranslate"><span class="pre">ensure_is_empty=True</span></code>, so you got an empty directory. But if you say False…</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ff</span> <span class="o">=</span> <span class="n">temp_dirpath</span><span class="p">(</span><span class="s1">&#39;your_choice_of_a_dirname&#39;</span><span class="p">,</span> <span class="n">ensure_is_empty</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">ff</span> <span class="o">==</span> <span class="n">f</span>  <span class="c1"># same path as before, but...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="ow">not</span> <span class="n">dir_is_empty</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;temp_file.txt&#39;</span><span class="p">]</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ff</span> <span class="o">=</span> <span class="n">temp_dirpath</span><span class="p">(</span><span class="s1">&#39;your_choice_of_a_dirname&#39;</span><span class="p">,</span> <span class="n">ensure_is_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">ff</span> <span class="o">==</span> <span class="n">f</span>  <span class="c1"># same path as before, but...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="o">==</span> <span class="p">[]</span>
+</pre></div>
+</div>
+<p>By default <code class="docutils literal notranslate"><span class="pre">ensure_exists=True</span></code>, but the value could be:
+- None; meaning don’t even check
+- False; meaning check, and if it exists, remove it</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ff</span> <span class="o">=</span> <span class="n">temp_dirpath</span><span class="p">(</span><span class="s1">&#39;your_choice_of_a_dirname&#39;</span><span class="p">,</span> <span class="n">ensure_exists</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">ff</span> <span class="o">==</span> <span class="n">f</span>  <span class="c1"># same path as before</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">ff</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">temp_dirpath</span><span class="p">(</span><span class="s1">&#39;your_choice_of_a_dirname&#39;</span><span class="p">,</span> <span class="n">ensure_exists</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="tested.local_files.temp_filepath">
+<code class="sig-prename descclassname">tested.local_files.</code><code class="sig-name descname">temp_filepath</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span><span class="o">=</span><span class="default_value">'temp_file'</span></em>, <em class="sig-param"><span class="n">subdir</span><span class="o">=</span><span class="default_value">'temp_filepaths/'</span></em>, <em class="sig-param"><span class="n">ensure_containing_dirs_exist</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">ensure_file_does_not_exist</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tested/local_files.html#temp_filepath"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tested.local_files.temp_filepath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a temp filepath, ensuring (by default) that the containing directories exist,
+and (optionally) that the file doesn’t exist either.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">filepath</span> <span class="o">=</span> <span class="n">temp_filepath</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">containing_dirpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">containing_dirpath</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">filepath</span> <span class="o">=</span> <span class="n">temp_filepath</span><span class="p">(</span><span class="s1">&#39;my_own_name.txt&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;my_own_name.txt&#39;</span>
+</pre></div>
+</div>
+<p>Let’s write something in that file.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="s1">&#39;hello file!&#39;</span><span class="p">)</span>  <span class="c1"># but we can write in it</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>  <span class="c1"># and now it exists</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">Path</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;hello file!&#39;</span>  <span class="c1"># here&#39;s what we wrote</span>
+</pre></div>
+</div>
+<p>If you ask for that filepath again (a short time later), you’ll get the same filepath,
+and the file will already exist. If you want to check if the file exists and delete it
+if it does, use <code class="docutils literal notranslate"><span class="pre">ensure_file_does_not_exist==True</span></code>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>  <span class="c1"># before</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">filepath2</span> <span class="o">=</span> <span class="n">temp_filepath</span><span class="p">(</span><span class="s1">&#39;my_own_name.txt&#39;</span><span class="p">,</span> <span class="n">ensure_file_does_not_exist</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">filepath2</span> <span class="o">==</span> <span class="n">filepath</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>  <span class="c1"># after (it doesn&#39;t exist!)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="codecs.html" class="btn btn-neutral float-left" title="tested.codecs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ml.html" class="btn btn-neutral float-right" title="tested.ml" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright NO COPYRIGHT.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

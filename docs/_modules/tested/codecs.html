@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tested.codecs &mdash; tested 0.1.17 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/toggleprompt.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> tested
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/tested.html">tested</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/tested/codecs.html">tested.codecs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/tested/local_files.html">tested.local_files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/tested/ml.html">tested.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/tested/multiple.html">tested.multiple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/tested/notebooks.html">tested.notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/tested/tests/objects_for_testing.html">tested.tests.objects_for_testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/tested/util.html">tested.util</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">tested</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>tested.codecs</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for tested.codecs</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Tools to test codecs -- i.e. serialization/deserialization pairs</span>
+
+<span class="sd">`validate_codec`: a function to test encoder/decoder pairs.</span>
+
+<span class="sd">&gt;&gt;&gt; from functools import partial</span>
+<span class="sd">&gt;&gt;&gt; import json</span>
+<span class="sd">&gt;&gt;&gt; validate_jsonability = partial(validate_codec, coder=json.dumps, decoder=json.loads)</span>
+
+<span class="sd">You can jsonize lists and dicts</span>
+
+<span class="sd">&gt;&gt;&gt; assert validate_jsonability([1, 2, 3])</span>
+<span class="sd">&gt;&gt;&gt; assert validate_jsonability({&#39;a&#39;: 1, &#39;b&#39;: {&#39;c&#39;: [1, 2, 3]}})</span>
+
+<span class="sd">You can&#39;t jsonize datetime objects</span>
+
+<span class="sd">&gt;&gt;&gt; from datetime import datetime</span>
+<span class="sd">&gt;&gt;&gt; validate_jsonability(datetime.now())</span>
+<span class="sd">False</span>
+
+<span class="sd">See `validate_codec` docs for more examples.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+
+
+<span class="k">def</span> <span class="nf">return_object_itself</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">obj</span>
+
+
+<span class="k">def</span> <span class="nf">always_true</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">decoded_obj</span><span class="p">):</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+
+<span class="k">def</span> <span class="nf">encode_and_decode</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">coder</span><span class="o">=</span><span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">,</span> <span class="n">decoder</span><span class="o">=</span><span class="n">pickle</span><span class="o">.</span><span class="n">loads</span><span class="p">):</span>
+    <span class="n">encoded_obj</span> <span class="o">=</span> <span class="n">coder</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+    <span class="n">decoded_obj</span> <span class="o">=</span> <span class="n">decoder</span><span class="p">(</span><span class="n">encoded_obj</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">decoded_obj</span>
+
+
+<span class="c1"># TODO: Add doctests using caught_errors</span>
+<span class="c1"># TODO: Discuss how the validate_codec can also solve decoding in a different env or</span>
+<span class="c1">#  location</span>
+<div class="viewcode-block" id="validate_codec"><a class="viewcode-back" href="../../module_docs/tested/codecs.html#tested.codecs.validate_codec">[docs]</a><span class="k">def</span> <span class="nf">validate_codec</span><span class="p">(</span>
+    <span class="n">obj</span><span class="p">,</span>
+    <span class="n">coder</span><span class="o">=</span><span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">,</span>
+    <span class="n">decoder</span><span class="o">=</span><span class="n">pickle</span><span class="o">.</span><span class="n">loads</span><span class="p">,</span>
+    <span class="n">command</span><span class="o">=</span><span class="n">return_object_itself</span><span class="p">,</span>
+    <span class="n">comparison</span><span class="o">=</span><span class="n">always_true</span><span class="p">,</span>
+    <span class="n">caught_errors</span><span class="o">=</span><span class="p">(</span><span class="ne">Exception</span><span class="p">,),</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Validate a coder/decoder pair.</span>
+
+<span class="sd">    Encodes the input `obj` with `coder`, then `decodes` the encoded object,</span>
+<span class="sd">    returning `comparison(command(obj), command(decoded_obj))`.</span>
+<span class="sd">    If an exception is raised, that is caught by `caught_errors`, `False` will be</span>
+<span class="sd">    returned.</span>
+
+<span class="sd">    :param obj: Object that should be serialized/encoded then deserialized/decoded</span>
+<span class="sd">    :param coder: The serializer.</span>
+<span class="sd">    :param decoder: The deserializer.</span>
+<span class="sd">    :param command: Function to apply to both obj and decoded_obj before comparing</span>
+<span class="sd">    :param comparison: Function that will be called on (obj, decoded_obj)</span>
+<span class="sd">    :param caught_errors: The exception types to catch (and return False)</span>
+<span class="sd">    :return: Whatever comparison returns</span>
+
+<span class="sd">    Note: The `command` function is not necessary since a custom comparison function</span>
+<span class="sd">    could be made to apply such a function to the obj and decoded_obj before comparing.</span>
+<span class="sd">    We provide command though, because it allows the user to set a comparison function,</span>
+<span class="sd">    but vary what is being compared.</span>
+<span class="sd">    For instance, we may want to use `==` (i.e. `operator.eq`) as our comparison</span>
+<span class="sd">    function, but apply this not to the objects themselves, but to some results</span>
+<span class="sd">    of operating with or on them.</span>
+<span class="sd">    For example, say you may not want to compare `func == decoded_func`, but instead</span>
+<span class="sd">    `func(42) == decoded_func(42)`.</span>
+<span class="sd">    In that case, you would specify `command=lambda f: f(42)`.</span>
+
+<span class="sd">    To demo how `validate_codec` works, we&#39;ll import two classes, and print their</span>
+<span class="sd">    code below. The reason we don&#39;t define them inline is because pickle can&#39;t</span>
+<span class="sd">    be used inside a module where the type of the object to pickle is defined.</span>
+
+<span class="sd">    &gt;&gt;&gt; from tested.tests.objects_for_testing import A, B</span>
+<span class="sd">    &gt;&gt;&gt; import inspect</span>
+<span class="sd">    &gt;&gt;&gt; print(inspect.getsource(A))</span>
+<span class="sd">    class A:</span>
+<span class="sd">        def __init__(self, x):</span>
+<span class="sd">            self.x = x</span>
+<span class="sd">    &lt;BLANKLINE&gt;</span>
+<span class="sd">        def __add__(self, other):</span>
+<span class="sd">            return self.x + other</span>
+<span class="sd">    &lt;BLANKLINE&gt;</span>
+<span class="sd">    &gt;&gt;&gt; print(inspect.getsource(B))</span>
+<span class="sd">    class B(A):</span>
+<span class="sd">        def __eq__(self, other):</span>
+<span class="sd">            return self.x == other.x</span>
+<span class="sd">    &lt;BLANKLINE&gt;</span>
+
+<span class="sd">    Let&#39;s make a few objects to test with:</span>
+
+<span class="sd">    &gt;&gt;&gt; a_list = [1,2,3]</span>
+<span class="sd">    &gt;&gt;&gt; a_tuple = (1, 2, 3)</span>
+<span class="sd">    &gt;&gt;&gt; a = A(42)</span>
+<span class="sd">    &gt;&gt;&gt; b = B(42)</span>
+
+<span class="sd">    Out-of-the-box, the only thing that `validate_codec` validates, is the ability of</span>
+<span class="sd">    a coder/decoder pair to serialize, then deserialize an object.</span>
+
+<span class="sd">    &gt;&gt;&gt; assert validate_codec(a_list)</span>
+<span class="sd">    &gt;&gt;&gt; assert validate_codec(a)</span>
+
+<span class="sd">    The default `coder` and `decoder` are `pickle.dumps` and `pickle.loads`</span>
+<span class="sd">    respectively, so you wouldn&#39;t be able to pickle a lambda function, for instance:</span>
+
+<span class="sd">    &gt;&gt;&gt; assert not validate_codec(lambda x: x)</span>
+
+<span class="sd">    The real usage of `validate_codec` though is to use `functools.partial` to fix the</span>
+<span class="sd">    arguments to those that make sense for the codec and objects to be coded and decoded.</span>
+
+<span class="sd">    Say for example, that we want to use equality `==` to compare the original object</span>
+<span class="sd">    with the decoded one. In that case, we&#39;d do this:</span>
+
+<span class="sd">    &gt;&gt;&gt; from functools import partial</span>
+<span class="sd">    &gt;&gt;&gt; from operator import eq</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; equality_validator = partial(validate_codec, comparison=eq)</span>
+<span class="sd">    &gt;&gt;&gt; assert equality_validator(a_list)</span>
+<span class="sd">    &gt;&gt;&gt; assert not equality_validator(a)</span>
+<span class="sd">    &gt;&gt;&gt; assert equality_validator(b)</span>
+
+<span class="sd">    The instance `a` of `A` didn&#39;t pass validation because by default, python objects</span>
+<span class="sd">    compare on the basis of their `id`, which is a low level unique reference (</span>
+<span class="sd">    integer) of an object.</span>
+<span class="sd">    It worked with `a_list` and with `b` because these have their own definition of</span>
+<span class="sd">    equality that bipasses `id`.</span>
+
+<span class="sd">    If we wanted to force the comparison based on `id` anyway, we could do it like this:</span>
+
+<span class="sd">    &gt;&gt;&gt; id_equality_validator = partial(validate_codec, command=id, comparison=eq)</span>
+<span class="sd">    &gt;&gt;&gt; assert not id_equality_validator(a_list)</span>
+<span class="sd">    &gt;&gt;&gt; assert not id_equality_validator(a)</span>
+<span class="sd">    &gt;&gt;&gt; assert not id_equality_validator(b)</span>
+
+<span class="sd">    The `id`-based comparison above was just meant for illustration.</span>
+<span class="sd">    I can&#39;t think of any use case where it would be useful.</span>
+<span class="sd">    On the other hand, the `command` argument has it&#39;s uses.</span>
+
+<span class="sd">    Here is now the crux of the matter: Functional equivalence.</span>
+
+<span class="sd">    No matter what anyone tells you, objects are useless in and of themselves.</span>
+<span class="sd">    It&#39;s their use, their behavior, that matters.</span>
+<span class="sd">    Therefore, when you decode an object, you&#39;re not really looking for the exact</span>
+<span class="sd">    same object that was encoded.</span>
+<span class="sd">    We&#39;ve seen that in fact, from the point of view of low level concerns such as</span>
+<span class="sd">    the `id`, you&#39;ll never get the exact same object.</span>
+<span class="sd">    What you should expect to get though, is some equivalence from the behavior point</span>
+<span class="sd">    of view.</span>
+<span class="sd">    That is, you need to be able to rely on getting &quot;the same&quot; results when operating</span>
+<span class="sd">    with the decoded object.</span>
+
+<span class="sd">    This is where `command` and `comparison` come in.</span>
+
+<span class="sd">    `command` specifies what operation(s) you want to be able to do on the decoded</span>
+<span class="sd">    object, and `comparison` specifies how you compare the results of carrying out</span>
+<span class="sd">    those same operations on the original object and the decoded one.</span>
+
+<span class="sd">    Note that `A` (and therefore `B`) have been defined so that we can sum instances</span>
+<span class="sd">    with a number:</span>
+<span class="sd">    &gt;&gt;&gt; a + 1</span>
+<span class="sd">    43</span>
+
+<span class="sd">    If what I really want out of my `A` and `B` instances is to add a number to it,</span>
+<span class="sd">    I can validate that like so:</span>
+
+<span class="sd">    &gt;&gt;&gt; equivalence_validator = partial(</span>
+<span class="sd">    ...     validate_codec,</span>
+<span class="sd">    ...     command=lambda obj: obj + 1,</span>
+<span class="sd">    ...     comparison=eq</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt; assert equivalence_validator(a)</span>
+<span class="sd">    &gt;&gt;&gt; assert equivalence_validator(b)</span>
+
+
+<span class="sd">    So far, we&#39;ve only used the default `pickle` encoder and decoders.</span>
+<span class="sd">    Let&#39;s try out another pair.</span>
+
+<span class="sd">    &gt;&gt;&gt; import array</span>
+<span class="sd">    &gt;&gt;&gt; import struct</span>
+<span class="sd">    &gt;&gt;&gt; from functools import partial</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; def float_encoder(a):</span>
+<span class="sd">    ...     return struct.pack(len(a) * &#39;f&#39;, *a)</span>
+<span class="sd">    ...</span>
+<span class="sd">    &gt;&gt;&gt; def float_decoder(b):</span>
+<span class="sd">    ...     n = struct.calcsize(&#39;f&#39;)</span>
+<span class="sd">    ...     return list(struct.unpack(int(len(b) / n) * &#39;f&#39;, b))</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; a_list = [1, 2, 3]</span>
+<span class="sd">    &gt;&gt;&gt; a_tuple = (1, 2, 3)</span>
+<span class="sd">    &gt;&gt;&gt; an_array_of_floats = array.ArrayType(&#39;f&#39;, [1 / 100, 100])</span>
+<span class="sd">    &gt;&gt;&gt; an_array_of_doubles = array.ArrayType(&#39;d&#39;, [1 / 100, 100])</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; float_validator = partial(</span>
+<span class="sd">    ...     validate_codec,</span>
+<span class="sd">    ...     coder=float_encoder,</span>
+<span class="sd">    ...     decoder=float_decoder,</span>
+<span class="sd">    ...     comparison=eq</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; assert float_validator(a_list)</span>
+<span class="sd">    &gt;&gt;&gt; assert not float_validator(a_tuple)</span>
+<span class="sd">    &gt;&gt;&gt; assert not float_validator(an_array_of_floats)</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; # The reason why `a_tuple` and `an_array_of_floats` don&#39;t validate is because</span>
+<span class="sd">    &gt;&gt;&gt; # array_codec decodes all iterables as lists, which are then compared to</span>
+<span class="sd">    &gt;&gt;&gt; # a tuple and an array (different types)</span>
+<span class="sd">    &gt;&gt;&gt; # Instead of using eq here, we should compare all elements individually:</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; all_equal = lambda x, y: all(xi == yi for xi, yi in zip(x, y))</span>
+<span class="sd">    &gt;&gt;&gt; float_validator_2 = partial(float_validator, comparison=all_equal)</span>
+<span class="sd">    &gt;&gt;&gt; assert float_validator_2(a_list)</span>
+<span class="sd">    &gt;&gt;&gt; assert float_validator_2(a_tuple)</span>
+<span class="sd">    &gt;&gt;&gt; assert float_validator_2(an_array_of_floats)</span>
+<span class="sd">    &gt;&gt;&gt; # but...</span>
+<span class="sd">    &gt;&gt;&gt; assert not float_validator_2(an_array_of_doubles)</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; # Why?</span>
+<span class="sd">    &gt;&gt;&gt; # Because we&#39;re using &#39;f&#39; formatting spec, which is a float with 4 bytes</span>
+<span class="sd">    &gt;&gt;&gt; # yet the array is uses &#39;d&#39; formatting (for doubles)</span>
+<span class="sd">    &gt;&gt;&gt; # It&#39;s easy to get into a... pickle of comparison comparing floats to doubles.</span>
+<span class="sd">    &gt;&gt;&gt; # We should probably use math.isclose to compare instead...</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; import math</span>
+<span class="sd">    &gt;&gt;&gt; all_are_close = lambda x, y: all(</span>
+<span class="sd">    ...     math.isclose(xx, yy, rel_tol=1e-6) for xx, yy in zip(x, y)</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; float_validator_3 = partial(float_validator, comparison=all_are_close)</span>
+<span class="sd">    &gt;&gt;&gt; assert float_validator_3(a_list)</span>
+<span class="sd">    &gt;&gt;&gt; assert float_validator_3(a_tuple)</span>
+<span class="sd">    &gt;&gt;&gt; assert float_validator_3(an_array_of_floats)</span>
+<span class="sd">    &gt;&gt;&gt; assert float_validator_3(an_array_of_doubles)  # works with doubles now!</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">decoded_obj</span> <span class="o">=</span> <span class="n">encode_and_decode</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">coder</span><span class="p">,</span> <span class="n">decoder</span><span class="p">)</span>
+        <span class="n">obj_result</span> <span class="o">=</span> <span class="n">command</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+        <span class="n">decoded_obj_result</span> <span class="o">=</span> <span class="n">command</span><span class="p">(</span><span class="n">decoded_obj</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">comparison</span><span class="p">(</span><span class="n">obj_result</span><span class="p">,</span> <span class="n">decoded_obj_result</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">caught_errors</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright NO COPYRIGHT.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
