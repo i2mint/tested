@@ -164,6 +164,7 @@ def validate_codec(
 
     Note that `A` (and therefore `B`) have been defined so that we can sum instances
     with a number:
+
     >>> a + 1
     43
 
@@ -208,12 +209,12 @@ def validate_codec(
     >>> assert float_validator(a_list)
     >>> assert not float_validator(a_tuple)
     >>> assert not float_validator(an_array_of_floats)
-    >>>
-    >>> # The reason why `a_tuple` and `an_array_of_floats` don't validate is because
-    >>> # array_codec decodes all iterables as lists, which are then compared to
-    >>> # a tuple and an array (different types)
-    >>> # Instead of using eq here, we should compare all elements individually:
-    >>>
+
+    The reason why `a_tuple` and `an_array_of_floats` don't validate is because
+    array_codec decodes all iterables as lists, which are then compared to
+    a tuple and an array (different types)
+    Instead of using eq here, we should compare all elements individually:
+
     >>> all_equal = lambda x, y: all(xi == yi for xi, yi in zip(x, y))
     >>> float_validator_2 = partial(float_validator, comparison=all_equal)
     >>> assert float_validator_2(a_list)
@@ -221,13 +222,13 @@ def validate_codec(
     >>> assert float_validator_2(an_array_of_floats)
     >>> # but...
     >>> assert not float_validator_2(an_array_of_doubles)
-    >>>
-    >>> # Why?
-    >>> # Because we're using 'f' formatting spec, which is a float with 4 bytes
-    >>> # yet the array is uses 'd' formatting (for doubles)
-    >>> # It's easy to get into a... pickle of comparison comparing floats to doubles.
-    >>> # We should probably use math.isclose to compare instead...
-    >>>
+
+    Why?
+    Because we're using 'f' formatting spec, which is a float with 4 bytes
+    yet the array is uses 'd' formatting (for doubles)
+    It's easy to get into a... pickle of comparison comparing floats to doubles.
+    We should probably use math.isclose to compare instead...
+
     >>> import math
     >>> all_are_close = lambda x, y: all(
     ...     math.isclose(xx, yy, rel_tol=1e-6) for xx, yy in zip(x, y)
