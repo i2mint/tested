@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>tested.codecs &mdash; tested 0.1.17 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <title>tested.codecs &mdash; tested 0.1.18 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
@@ -212,9 +212,11 @@ with the decoded object.</p>
 object, and <cite>comparison</cite> specifies how you compare the results of carrying out
 those same operations on the original object and the decoded one.</p>
 <p>Note that <cite>A</cite> (and therefore <cite>B</cite>) have been defined so that we can sum instances
-with a number:
-&gt;&gt;&gt; a + 1
-43</p>
+with a number:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="go">43</span>
+</pre></div>
+</div>
 <p>If what I really want out of my <cite>A</cite> and <cite>B</cite> instances is to add a number to it,
 I can validate that like so:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">equivalence_validator</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span>
@@ -254,27 +256,27 @@ Let’s try out another pair.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">float_validator</span><span class="p">(</span><span class="n">a_list</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="ow">not</span> <span class="n">float_validator</span><span class="p">(</span><span class="n">a_tuple</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="ow">not</span> <span class="n">float_validator</span><span class="p">(</span><span class="n">an_array_of_floats</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># The reason why `a_tuple` and `an_array_of_floats` don&#39;t validate is because</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># array_codec decodes all iterables as lists, which are then compared to</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># a tuple and an array (different types)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Instead of using eq here, we should compare all elements individually:</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">all_equal</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">all</span><span class="p">(</span><span class="n">xi</span> <span class="o">==</span> <span class="n">yi</span> <span class="k">for</span> <span class="n">xi</span><span class="p">,</span> <span class="n">yi</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The reason why <cite>a_tuple</cite> and <cite>an_array_of_floats</cite> don’t validate is because
+array_codec decodes all iterables as lists, which are then compared to
+a tuple and an array (different types)
+Instead of using eq here, we should compare all elements individually:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">all_equal</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">all</span><span class="p">(</span><span class="n">xi</span> <span class="o">==</span> <span class="n">yi</span> <span class="k">for</span> <span class="n">xi</span><span class="p">,</span> <span class="n">yi</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">float_validator_2</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">float_validator</span><span class="p">,</span> <span class="n">comparison</span><span class="o">=</span><span class="n">all_equal</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">float_validator_2</span><span class="p">(</span><span class="n">a_list</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">float_validator_2</span><span class="p">(</span><span class="n">a_tuple</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">float_validator_2</span><span class="p">(</span><span class="n">an_array_of_floats</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># but...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="ow">not</span> <span class="n">float_validator_2</span><span class="p">(</span><span class="n">an_array_of_doubles</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Why?</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Because we&#39;re using &#39;f&#39; formatting spec, which is a float with 4 bytes</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># yet the array is uses &#39;d&#39; formatting (for doubles)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># It&#39;s easy to get into a... pickle of comparison comparing floats to doubles.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># We should probably use math.isclose to compare instead...</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">math</span>
+</pre></div>
+</div>
+<p>Why?
+Because we’re using ‘f’ formatting spec, which is a float with 4 bytes
+yet the array is uses ‘d’ formatting (for doubles)
+It’s easy to get into a… pickle of comparison comparing floats to doubles.
+We should probably use math.isclose to compare instead…</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">math</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">all_are_close</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">all</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">)</span> <span class="k">for</span> <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 <span class="gp">... </span><span class="p">)</span>
