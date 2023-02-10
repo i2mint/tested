@@ -184,12 +184,12 @@ def train_test_split_keys(
 ):
     """Split keys into train and test lists.
 
-    The train_keys and test_keys are disjoint and taken from keys.
+    The ``train_keys`` and ``test_keys`` are disjoint and taken from ``keys``.
 
-    Specifying key_to_tag (a function or iterable) ensures that tags will be
+    Specifying ``key_to_tag`` (a function or iterable) ensures that ``tags`` will be
     well distributed in both train and test.
 
-    Specifying key_to_group (a function or iterable) ensures **on the contrary**
+    Specifying ``key_to_group`` (a function or iterable) ensures **on the contrary**
     that keys of a same group will be entirely in train **or (exclusive)** in
     test -- not both.
 
@@ -198,11 +198,11 @@ def train_test_split_keys(
     sklearn speak) or function to compute these from keys
     :param key_to_group: keys-aligned iterable of groups or function to compute
     these from keys
-    :return a train_keys, test_keys pair (all elements of keys) if n_splits=1,
+    :return a ``(train_keys, test_keys)`` pair (all elements of keys) if ``n_splits=1``,
     and a generator of such pairs if not.
 
-    Note that in the doctest below, we take keys=[7, 14, 21, ...] to show that
-    it's not about [0, 1, 2, ...] indices only, but ANY keys
+    Note that in the doctest below, we take ``keys=[7, 14, 21, ...]`` to show that
+    it's not about ``[0, 1, 2, ...]`` indices only, but ANY keys
     (even non numerical -- like filepaths, DB selectors, etc.)
 
     >>> keys = range(7, 7 + 100 * 7, 7)  # [7, 14, 21, ..., 700]
@@ -211,7 +211,7 @@ def train_test_split_keys(
     >>> train_keys, test_keys = train_test_split_keys(keys, key_to_group=mod5,
     ...     train_size=.5, random_state=42)
 
-    Observe here that though `train_size=.5`, the proportion is not 50/50.
+    Observe here that though ``train_size=.5``, the proportion is not 50/50.
     That's because the group constraint, imposed by the key_to_group argument
     produces only 5 groups.
 
