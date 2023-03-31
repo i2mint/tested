@@ -13,10 +13,10 @@
  'test',
  'test2']
 
->>> t = versions_available_for_install()
->>> print(f"{len(t)=}")
+>>> t = versions_available_for_install()   #doctest: +SKIP
+>>> print(f"{len(t)=}")   #doctest: +SKIP
 len(t)=436
->>> t[:5]
+>>> t[:5]   #doctest: +SKIP
 ['2.1.3', '2.2.3', '2.3.7', '2.4.0', '2.4.1']
 
 See:
