@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>tested.ml &mdash; tested 0.1.18 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <title>tested.ml &mdash; tested 0.1.19 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
@@ -31,11 +31,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> tested
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            tested
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -49,6 +53,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">tested.ml</a></li>
 <li class="toctree-l1"><a class="reference internal" href="multiple.html">tested.multiple</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks.html">tested.notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scrap/contextualize_tests.html">tested.scrap.contextualize_tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tests/objects_for_testing.html">tested.tests.objects_for_testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="util.html">tested.util</a></li>
 </ul>
@@ -66,8 +71,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>tested.ml</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">tested.ml</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/module_docs/tested/ml.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -145,27 +150,29 @@ out defaults for any of these if not given.</p>
 <dt id="tested.ml.train_test_split_keys">
 <code class="sig-prename descclassname">tested.ml.</code><code class="sig-name descname">train_test_split_keys</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">keys</span><span class="p">:</span> <span class="n">Iterable</span></em>, <em class="sig-param"><span class="n">key_to_tag</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>Callable<span class="p">, </span>Iterable<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">key_to_group</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>Callable<span class="p">, </span>Iterable<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">test_size</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">train_size</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">random_state</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">n_splits</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tested/ml.html#train_test_split_keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tested.ml.train_test_split_keys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Split keys into train and test lists.</p>
-<p>The train_keys and test_keys are disjoint and taken from keys.</p>
-<p>Specifying key_to_tag (a function or iterable) ensures that tags will be
+<p>The <code class="docutils literal notranslate"><span class="pre">train_keys</span></code> and <code class="docutils literal notranslate"><span class="pre">test_keys</span></code> are disjoint and taken from <code class="docutils literal notranslate"><span class="pre">keys</span></code>.</p>
+<p>Specifying <code class="docutils literal notranslate"><span class="pre">key_to_tag</span></code> (a function or iterable) ensures that <code class="docutils literal notranslate"><span class="pre">tags</span></code> will be
 well distributed in both train and test.</p>
-<p>Specifying key_to_group (a function or iterable) ensures <strong>on the contrary</strong>
+<p>Specifying <code class="docutils literal notranslate"><span class="pre">key_to_group</span></code> (a function or iterable) ensures <strong>on the contrary</strong>
 that keys of a same group will be entirely in train <strong>or (exclusive)</strong> in
 test – not both.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>keys</strong> – keys to be split</p></li>
-<li><p><strong>key_to_tag</strong> – keys-aligned iterable of tags (a.k.a y/classes in</p></li>
+<li><p><strong>key_to_tag</strong> – keys-aligned iterable of tags (a.k.a y/classes in
+sklearn speak) or function to compute these from keys</p></li>
+<li><p><strong>key_to_group</strong> – keys-aligned iterable of groups or function to compute
+these from keys</p></li>
 </ul>
 </dd>
 </dl>
-<p>sklearn speak) or function to compute these from keys
-:param key_to_group: keys-aligned iterable of groups or function to compute
-these from keys
-:return a train_keys, test_keys pair (all elements of keys) if n_splits=1,
-and a generator of such pairs if not.</p>
-<p>Note that in the doctest below, we take keys=[7, 14, 21, …] to show that
-it’s not about [0, 1, 2, …] indices only, but ANY keys
+<dl class="simple">
+<dt>:return a <code class="docutils literal notranslate"><span class="pre">(train_keys,</span> <span class="pre">test_keys)</span></code> pair (all elements of keys) if <code class="docutils literal notranslate"><span class="pre">n_splits=1</span></code>,</dt><dd><p>and a generator of such pairs if not.</p>
+</dd>
+</dl>
+<p>Note that in the doctest below, we take <code class="docutils literal notranslate"><span class="pre">keys=[7,</span> <span class="pre">14,</span> <span class="pre">21,</span> <span class="pre">...]</span></code> to show that
+it’s not about <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1,</span> <span class="pre">2,</span> <span class="pre">...]</span></code> indices only, but ANY keys
 (even non numerical – like filepaths, DB selectors, etc.)</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">keys</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span> <span class="o">+</span> <span class="mi">100</span> <span class="o">*</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>  <span class="c1"># [7, 14, 21, ..., 700]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">mod5</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
@@ -174,7 +181,7 @@ it’s not about [0, 1, 2, …] indices only, but ANY keys
 <span class="gp">... </span>    <span class="n">train_size</span><span class="o">=</span><span class="mf">.5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Observe here that though <cite>train_size=.5</cite>, the proportion is not 50/50.
+<p>Observe here that though <code class="docutils literal notranslate"><span class="pre">train_size=.5</span></code>, the proportion is not 50/50.
 That’s because the group constraint, imposed by the key_to_group argument
 produces only 5 groups.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">train_keys</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">test_keys</span><span class="p">)</span>

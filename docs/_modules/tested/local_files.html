@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>tested.local_files &mdash; tested 0.1.18 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <title>tested.local_files &mdash; tested 0.1.19 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
@@ -28,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> tested
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            tested
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -46,6 +50,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/tested/ml.html">tested.ml</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/tested/multiple.html">tested.multiple</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/tested/notebooks.html">tested.notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/tested/scrap/contextualize_tests.html">tested.scrap.contextualize_tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/tested/tests/objects_for_testing.html">tested.tests.objects_for_testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/tested/util.html">tested.util</a></li>
 </ul>
@@ -63,9 +68,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../index.html">Module code</a> &raquo;</li>
-      <li>tested.local_files</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">tested.local_files</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -105,7 +110,7 @@
 
 
 <div class="viewcode-block" id="non_empty_tail"><a class="viewcode-back" href="../../module_docs/tested/local_files.html#tested.local_files.non_empty_tail">[docs]</a><span class="k">def</span> <span class="nf">non_empty_tail</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;The tail of the path, disregarding trailing slash if present.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The tail of the path, disregarding trailing slash if present.</span>
 
 <span class="sd">    If / is the separator, this means:</span>
 
@@ -126,7 +131,7 @@
 
 
 <div class="viewcode-block" id="empty_dir"><a class="viewcode-back" href="../../module_docs/tested/local_files.html#tested.local_files.empty_dir">[docs]</a><span class="k">def</span> <span class="nf">empty_dir</span><span class="p">(</span><span class="n">dirpath</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Empty a directory of it&#39;s contents (and recreated the directory)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Empty a directory of it&#39;s contents (and recreated the directory)</span>
 <span class="sd">    Note: This means that the directory creation date will be now.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -135,7 +140,7 @@
 
 
 <div class="viewcode-block" id="dir_is_empty"><a class="viewcode-back" href="../../module_docs/tested/local_files.html#tested.local_files.dir_is_empty">[docs]</a><span class="k">def</span> <span class="nf">dir_is_empty</span><span class="p">(</span><span class="n">dirpath</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">    :param path:</span>
 <span class="sd">    :return:</span>
@@ -152,7 +157,7 @@
     <span class="n">ensure_exists</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">ensure_is_empty</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Get a fresh temporary folder path with assurances about existence and emptiness.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get a fresh temporary folder path with assurances about existence and emptiness.</span>
 
 <span class="sd">    :param subpath: The (relative) name of the folder.</span>
 <span class="sd">    :param ensure_exists:</span>
@@ -224,7 +229,7 @@
     <span class="n">ensure_containing_dirs_exist</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">ensure_file_does_not_exist</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Make a temp filepath, ensuring (by default) that the containing directories exist,</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Make a temp filepath, ensuring (by default) that the containing directories exist,</span>
 <span class="sd">    and (optionally) that the file doesn&#39;t exist either.</span>
 
 <span class="sd">    &gt;&gt;&gt; filepath = temp_filepath()</span>

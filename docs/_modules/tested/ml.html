@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>tested.ml &mdash; tested 0.1.18 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <title>tested.ml &mdash; tested 0.1.19 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
@@ -28,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> tested
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            tested
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -46,6 +50,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/tested/ml.html">tested.ml</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/tested/multiple.html">tested.multiple</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/tested/notebooks.html">tested.notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/tested/scrap/contextualize_tests.html">tested.scrap.contextualize_tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/tested/tests/objects_for_testing.html">tested.tests.objects_for_testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/tested/util.html">tested.util</a></li>
 </ul>
@@ -63,9 +68,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../index.html">Module code</a> &raquo;</li>
-      <li>tested.ml</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">tested.ml</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -102,7 +107,7 @@
 <div class="viewcode-block" id="learner_equivalence"><a class="viewcode-back" href="../../module_docs/tested/ml.html#tested.ml.learner_equivalence">[docs]</a><span class="k">def</span> <span class="nf">learner_equivalence</span><span class="p">(</span>
     <span class="n">learner_1</span><span class="p">,</span> <span class="n">learner_2</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">model_action</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">equivalence_scorer</span><span class="o">=</span><span class="kc">None</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns an score that measures how much the two learners are equivalent.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns an score that measures how much the two learners are equivalent.</span>
 <span class="sd">    The user can specify what data to use (`xy`) to fit the learners,</span>
 <span class="sd">    what action to take on the fitted model (`model_action`),</span>
 <span class="sd">    and what function to apply to the two results to compute the final score.</span>
@@ -144,7 +149,7 @@
 
 
 <span class="k">def</span> <span class="nf">_is_estimator_factory</span><span class="p">(</span><span class="n">estimator</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Tells us if the input might be able to be called to get an estimator&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Tells us if the input might be able to be called to get an estimator&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
         <span class="nb">isinstance</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">Callable</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">BaseEstimator</span><span class="p">)</span>
     <span class="p">)</span>
@@ -154,7 +159,7 @@
 
 
 <div class="viewcode-block" id="estimator_kind"><a class="viewcode-back" href="../../module_docs/tested/ml.html#tested.ml.estimator_kind">[docs]</a><span class="k">def</span> <span class="nf">estimator_kind</span><span class="p">(</span><span class="n">estimator</span><span class="p">:</span> <span class="n">Estimator</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Returns the kind (string) of an Estimator&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the kind (string) of an Estimator&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">_is_estimator_factory</span><span class="p">(</span><span class="n">estimator</span><span class="p">):</span>
         <span class="n">estimator</span> <span class="o">=</span> <span class="n">estimator</span><span class="p">()</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">BaseEstimator</span><span class="p">):</span>
@@ -200,7 +205,7 @@
 
 
 <div class="viewcode-block" id="get_model_action_and_equivalence_scorer"><a class="viewcode-back" href="../../module_docs/tested/ml.html#tested.ml.get_model_action_and_equivalence_scorer">[docs]</a><span class="k">def</span> <span class="nf">get_model_action_and_equivalence_scorer</span><span class="p">(</span><span class="n">model_action</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns a default (model_action, equivalence_scorer) for a given model_action</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns a default (model_action, equivalence_scorer) for a given model_action</span>
 <span class="sd">    It will return the model_action as is if not a learner.</span>
 <span class="sd">    If a learner, it will try to figure out a default model_action for it.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -224,7 +229,7 @@
 
 
 <div class="viewcode-block" id="keys_aligned_list"><a class="viewcode-back" href="../../module_docs/tested/ml.html#tested.ml.keys_aligned_list">[docs]</a><span class="k">def</span> <span class="nf">keys_aligned_list</span><span class="p">(</span><span class="n">iterable_spec</span><span class="p">,</span> <span class="n">keys</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Get an iterable that is aligned with the keys iterable, and verify that it is so.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get an iterable that is aligned with the keys iterable, and verify that it is so.</span>
 
 <span class="sd">    &gt;&gt;&gt; keys_aligned_list(lambda x: x * 2, keys=[1, 2, 3])</span>
 <span class="sd">    [2, 4, 6]</span>
@@ -259,27 +264,27 @@
     <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">n_splits</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Split keys into train and test lists.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Split keys into train and test lists.</span>
 
-<span class="sd">    The train_keys and test_keys are disjoint and taken from keys.</span>
+<span class="sd">    The ``train_keys`` and ``test_keys`` are disjoint and taken from ``keys``.</span>
 
-<span class="sd">    Specifying key_to_tag (a function or iterable) ensures that tags will be</span>
+<span class="sd">    Specifying ``key_to_tag`` (a function or iterable) ensures that ``tags`` will be</span>
 <span class="sd">    well distributed in both train and test.</span>
 
-<span class="sd">    Specifying key_to_group (a function or iterable) ensures **on the contrary**</span>
+<span class="sd">    Specifying ``key_to_group`` (a function or iterable) ensures **on the contrary**</span>
 <span class="sd">    that keys of a same group will be entirely in train **or (exclusive)** in</span>
 <span class="sd">    test -- not both.</span>
 
 <span class="sd">    :param keys: keys to be split</span>
 <span class="sd">    :param key_to_tag: keys-aligned iterable of tags (a.k.a y/classes in</span>
-<span class="sd">    sklearn speak) or function to compute these from keys</span>
+<span class="sd">        sklearn speak) or function to compute these from keys</span>
 <span class="sd">    :param key_to_group: keys-aligned iterable of groups or function to compute</span>
-<span class="sd">    these from keys</span>
-<span class="sd">    :return a train_keys, test_keys pair (all elements of keys) if n_splits=1,</span>
-<span class="sd">    and a generator of such pairs if not.</span>
+<span class="sd">        these from keys</span>
+<span class="sd">    :return a ``(train_keys, test_keys)`` pair (all elements of keys) if ``n_splits=1``,</span>
+<span class="sd">        and a generator of such pairs if not.</span>
 
-<span class="sd">    Note that in the doctest below, we take keys=[7, 14, 21, ...] to show that</span>
-<span class="sd">    it&#39;s not about [0, 1, 2, ...] indices only, but ANY keys</span>
+<span class="sd">    Note that in the doctest below, we take ``keys=[7, 14, 21, ...]`` to show that</span>
+<span class="sd">    it&#39;s not about ``[0, 1, 2, ...]`` indices only, but ANY keys</span>
 <span class="sd">    (even non numerical -- like filepaths, DB selectors, etc.)</span>
 
 <span class="sd">    &gt;&gt;&gt; keys = range(7, 7 + 100 * 7, 7)  # [7, 14, 21, ..., 700]</span>
@@ -288,7 +293,7 @@
 <span class="sd">    &gt;&gt;&gt; train_keys, test_keys = train_test_split_keys(keys, key_to_group=mod5,</span>
 <span class="sd">    ...     train_size=.5, random_state=42)</span>
 
-<span class="sd">    Observe here that though `train_size=.5`, the proportion is not 50/50.</span>
+<span class="sd">    Observe here that though ``train_size=.5``, the proportion is not 50/50.</span>
 <span class="sd">    That&#39;s because the group constraint, imposed by the key_to_group argument</span>
 <span class="sd">    produces only 5 groups.</span>
 
