@@ -195,11 +195,11 @@ def train_test_split_keys(
 
     :param keys: keys to be split
     :param key_to_tag: keys-aligned iterable of tags (a.k.a y/classes in
-    sklearn speak) or function to compute these from keys
+        sklearn speak) or function to compute these from keys
     :param key_to_group: keys-aligned iterable of groups or function to compute
-    these from keys
+        these from keys
     :return a ``(train_keys, test_keys)`` pair (all elements of keys) if ``n_splits=1``,
-    and a generator of such pairs if not.
+        and a generator of such pairs if not.
 
     Note that in the doctest below, we take ``keys=[7, 14, 21, ...]`` to show that
     it's not about ``[0, 1, 2, ...]`` indices only, but ANY keys
