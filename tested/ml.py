@@ -177,6 +177,7 @@ def train_test_split_keys(
     keys: Iterable,
     key_to_tag: Union[Callable, Iterable, None] = None,
     key_to_group: Union[Callable, Iterable, None] = None,
+    *,
     test_size=None,
     train_size=None,
     random_state=None,
