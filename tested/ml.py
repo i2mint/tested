@@ -178,6 +178,7 @@ def train_test_split_keys(
     key_to_tag: Union[Callable, Iterable, None] = None,
     key_to_group: Union[Callable, Iterable, None] = None,
     *,
+    # Yes, these are used, but lint doesn't see it because using locals() to get them
     test_size=None,
     train_size=None,
     random_state=None,
