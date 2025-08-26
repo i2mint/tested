@@ -1,23 +1,25 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>tested.local_files &mdash; tested 0.1.22 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/language_data.js"></script>
-        <script src="../../_static/toggleprompt.js"></script>
-        <script src="../../_static/clipboard.min.js"></script>
-        <script src="../../_static/copybutton.js"></script>
+  <title>tested.local_files &mdash; tested 0.1.23 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=20522496"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -42,7 +44,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/tested.html">tested</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/tested/codecs.html">tested.codecs</a></li>
@@ -99,17 +101,19 @@
 <span class="sd">&gt;&gt;&gt; assert os.path.isdir(containing_dirpath)</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">tempfile</span>
-<span class="kn">import</span> <span class="nn">shutil</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
 <span class="n">file_sep</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span>
 <span class="n">DFLT_SUBPATH</span> <span class="o">=</span> <span class="s1">&#39;tempdir&#39;</span>
 
 
-<div class="viewcode-block" id="non_empty_tail"><a class="viewcode-back" href="../../module_docs/tested/local_files.html#tested.local_files.non_empty_tail">[docs]</a><span class="k">def</span> <span class="nf">non_empty_tail</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+<div class="viewcode-block" id="non_empty_tail">
+<a class="viewcode-back" href="../../module_docs/tested/local_files.html#tested.local_files.non_empty_tail">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">non_empty_tail</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The tail of the path, disregarding trailing slash if present.</span>
 
 <span class="sd">    If / is the separator, this means:</span>
@@ -130,7 +134,10 @@
     <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="empty_dir"><a class="viewcode-back" href="../../module_docs/tested/local_files.html#tested.local_files.empty_dir">[docs]</a><span class="k">def</span> <span class="nf">empty_dir</span><span class="p">(</span><span class="n">dirpath</span><span class="p">):</span>
+
+<div class="viewcode-block" id="empty_dir">
+<a class="viewcode-back" href="../../module_docs/tested/local_files.html#tested.local_files.empty_dir">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">empty_dir</span><span class="p">(</span><span class="n">dirpath</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Empty a directory of it&#39;s contents (and recreated the directory)</span>
 <span class="sd">    Note: This means that the directory creation date will be now.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -139,7 +146,10 @@
     <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">dirpath</span><span class="p">)</span>  <span class="c1"># recreate the dir</span></div>
 
 
-<div class="viewcode-block" id="dir_is_empty"><a class="viewcode-back" href="../../module_docs/tested/local_files.html#tested.local_files.dir_is_empty">[docs]</a><span class="k">def</span> <span class="nf">dir_is_empty</span><span class="p">(</span><span class="n">dirpath</span><span class="p">):</span>
+
+<div class="viewcode-block" id="dir_is_empty">
+<a class="viewcode-back" href="../../module_docs/tested/local_files.html#tested.local_files.dir_is_empty">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">dir_is_empty</span><span class="p">(</span><span class="n">dirpath</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">    :param path:</span>
@@ -152,7 +162,10 @@
     <span class="k">return</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">dirpath</span><span class="p">)</span><span class="o">.</span><span class="n">iterdir</span><span class="p">())</span></div>
 
 
-<div class="viewcode-block" id="temp_dirpath"><a class="viewcode-back" href="../../module_docs/tested/local_files.html#tested.local_files.temp_dirpath">[docs]</a><span class="k">def</span> <span class="nf">temp_dirpath</span><span class="p">(</span>
+
+<div class="viewcode-block" id="temp_dirpath">
+<a class="viewcode-back" href="../../module_docs/tested/local_files.html#tested.local_files.temp_dirpath">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">temp_dirpath</span><span class="p">(</span>
     <span class="n">subpath</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DFLT_SUBPATH</span><span class="p">,</span>
     <span class="n">ensure_exists</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">ensure_is_empty</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
@@ -223,7 +236,10 @@
     <span class="k">return</span> <span class="n">dirpath</span></div>
 
 
-<div class="viewcode-block" id="temp_filepath"><a class="viewcode-back" href="../../module_docs/tested/local_files.html#tested.local_files.temp_filepath">[docs]</a><span class="k">def</span> <span class="nf">temp_filepath</span><span class="p">(</span>
+
+<div class="viewcode-block" id="temp_filepath">
+<a class="viewcode-back" href="../../module_docs/tested/local_files.html#tested.local_files.temp_filepath">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">temp_filepath</span><span class="p">(</span>
     <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;temp_file&#39;</span><span class="p">,</span>
     <span class="n">subdir</span><span class="o">=</span><span class="s1">&#39;temp_filepaths/&#39;</span><span class="p">,</span>
     <span class="n">ensure_containing_dirs_exist</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -261,6 +277,7 @@
     <span class="k">if</span> <span class="n">ensure_file_does_not_exist</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
         <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">filepath</span></div>
+
 </pre></div>
 
            </div>

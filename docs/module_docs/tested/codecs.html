@@ -1,24 +1,26 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>tested.codecs &mdash; tested 0.1.22 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/language_data.js"></script>
-        <script src="../../_static/toggleprompt.js"></script>
-        <script src="../../_static/clipboard.min.js"></script>
-        <script src="../../_static/copybutton.js"></script>
+  <title>tested.codecs &mdash; tested 0.1.23 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=20522496"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -45,10 +47,13 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../tested.html">tested</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">tested.codecs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">tested.codecs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#tested.codecs.validate_codec"><code class="docutils literal notranslate"><span class="pre">validate_codec()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="local_files.html">tested.local_files</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ml.html">tested.ml</a></li>
 <li class="toctree-l1"><a class="reference internal" href="multiple.html">tested.multiple</a></li>
@@ -83,11 +88,11 @@
            <div itemprop="articleBody">
              
   <section id="module-tested.codecs">
-<span id="tested-codecs"></span><h1>tested.codecs<a class="headerlink" href="#module-tested.codecs" title="Permalink to this headline">¶</a></h1>
+<span id="tested-codecs"></span><h1>tested.codecs<a class="headerlink" href="#module-tested.codecs" title="Link to this heading"></a></h1>
 <p>Tools to test codecs – i.e. serialization/deserialization pairs</p>
 <p><cite>validate_codec</cite>: a function to test encoder/decoder pairs.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">json</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">partial</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">validate_jsonability</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">validate_codec</span><span class="p">,</span> <span class="n">coder</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">,</span> <span class="n">decoder</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -97,22 +102,22 @@
 </pre></div>
 </div>
 <p>You can’t jsonize datetime objects</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">validate_jsonability</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">())</span>
 <span class="go">False</span>
 </pre></div>
 </div>
 <p>See <cite>validate_codec</cite> docs for more examples.</p>
 <dl class="py function">
-<dt id="tested.codecs.validate_codec">
-<code class="sig-prename descclassname">tested.codecs.</code><code class="sig-name descname">validate_codec</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">coder=&lt;built-in function dumps&gt;</em>, <em class="sig-param">decoder=&lt;built-in function loads&gt;</em>, <em class="sig-param">command=&lt;function return_object_itself&gt;</em>, <em class="sig-param">comparison=&lt;function always_true&gt;</em>, <em class="sig-param">caught_errors=(&lt;class 'Exception'&gt;</em>, <em class="sig-param">)</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tested/codecs.html#validate_codec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tested.codecs.validate_codec" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tested.codecs.validate_codec">
+<span class="sig-prename descclassname"><span class="pre">tested.codecs.</span></span><span class="sig-name descname"><span class="pre">validate_codec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coder=&lt;built-in</span> <span class="pre">function</span> <span class="pre">dumps&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoder=&lt;built-in</span> <span class="pre">function</span> <span class="pre">loads&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command=&lt;function</span> <span class="pre">return_object_itself&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comparison=&lt;function</span> <span class="pre">always_true&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caught_errors=(&lt;class</span> <span class="pre">'Exception'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tested/codecs.html#validate_codec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tested.codecs.validate_codec" title="Link to this definition"></a></dt>
 <dd><p>Validate a coder/decoder pair.</p>
 <p>Encodes the input <cite>obj</cite> with <cite>coder</cite>, then <cite>decodes</cite> the encoded object,
 returning <cite>comparison(command(obj), command(decoded_obj))</cite>.
 If an exception is raised, that is caught by <cite>caught_errors</cite>, <cite>False</cite> will be
 returned.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> – Object that should be serialized/encoded then deserialized/decoded</p></li>
 <li><p><strong>coder</strong> – The serializer.</p></li>
@@ -122,7 +127,7 @@ returned.</p>
 <li><p><strong>caught_errors</strong> – The exception types to catch (and return False)</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Whatever comparison returns</p>
 </dd>
 </dl>
@@ -139,8 +144,8 @@ In that case, you would specify <cite>command=lambda f: f(42)</cite>.</p>
 <p>To demo how <cite>validate_codec</cite> works, we’ll import two classes, and print their
 code below. The reason we don’t define them inline is because pickle can’t
 be used inside a module where the type of the object to pickle is defined.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tested.tests.objects_for_testing</span> <span class="kn">import</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">inspect</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">tested.tests.objects_for_testing</span><span class="w"> </span><span class="kn">import</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">inspect</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">getsource</span><span class="p">(</span><span class="n">A</span><span class="p">))</span>
 <span class="go">class A:</span>
 <span class="go">    def __init__(self, x):</span>
@@ -177,8 +182,8 @@ respectively, so you wouldn’t be able to pickle a lambda function, for instanc
 arguments to those that make sense for the codec and objects to be coded and decoded.</p>
 <p>Say for example, that we want to use equality <cite>==</cite> to compare the original object
 with the decoded one. In that case, we’d do this:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">eq</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">partial</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">operator</span><span class="w"> </span><span class="kn">import</span> <span class="n">eq</span>
 <span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">equality_validator</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">validate_codec</span><span class="p">,</span> <span class="n">comparison</span><span class="o">=</span><span class="n">eq</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">equality_validator</span><span class="p">(</span><span class="n">a_list</span><span class="p">)</span>
@@ -235,14 +240,14 @@ I can validate that like so:</p>
 </div>
 <p>So far, we’ve only used the default <cite>pickle</cite> encoder and decoders.
 Let’s try out another pair.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">array</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">struct</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">array</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">struct</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">partial</span>
 <span class="gp">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">float_encoder</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span><span class="w"> </span><span class="nf">float_encoder</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="s1">&#39;f&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">a</span><span class="p">)</span>
 <span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">float_decoder</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span><span class="w"> </span><span class="nf">float_decoder</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">n</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">calcsize</span><span class="p">(</span><span class="s1">&#39;f&#39;</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="s1">&#39;f&#39;</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt;</span>
@@ -281,7 +286,7 @@ Because we’re using ‘f’ formatting spec, which is a float with 4 bytes
 yet the array is uses ‘d’ formatting (for doubles)
 It’s easy to get into a… pickle of comparison comparing floats to doubles.
 We should probably use math.isclose to compare instead…</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">math</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">all_are_close</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">all</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">)</span> <span class="k">for</span> <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 <span class="gp">... </span><span class="p">)</span>
