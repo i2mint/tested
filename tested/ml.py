@@ -2,7 +2,8 @@
 Testing utils for ML
 """
 
-from typing import Iterable, Callable, Union, Tuple
+from typing import Union, Tuple
+from collections.abc import Iterable, Callable
 
 import numpy as np
 from sklearn.model_selection import GroupShuffleSplit
@@ -18,7 +19,7 @@ from i2.signatures import call_forgivingly
 Learner = BaseEstimator  # but not necessarily fitted
 Model = BaseEstimator  # but fitted
 Estimator = Union[Callable, str, type, BaseEstimator]
-XY = Tuple[Iterable, Iterable]
+XY = tuple[Iterable, Iterable]
 XYFactory = Callable[[], XY]
 
 
@@ -175,8 +176,8 @@ def keys_aligned_list(iterable_spec, keys):
 
 def train_test_split_keys(
     keys: Iterable,
-    key_to_tag: Union[Callable, Iterable, None] = None,
-    key_to_group: Union[Callable, Iterable, None] = None,
+    key_to_tag: Callable | Iterable | None = None,
+    key_to_group: Callable | Iterable | None = None,
     *,
     # Yes, these are used, but lint doesn't see it because using locals() to get them
     test_size=None,

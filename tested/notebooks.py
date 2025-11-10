@@ -20,7 +20,8 @@ Links to check out:
 """
 
 from itertools import starmap
-from typing import Iterable, Any
+from typing import Any
+from collections.abc import Iterable
 
 
 class CellFuncs:
@@ -35,7 +36,7 @@ class CellFuncs:
                 out_str = prefix + out_str
             else:
                 out_str = (
-                    prefix + '\n' + '\n'.join(('# ' + x for x in out_str.split('\n')))
+                    prefix + '\n' + '\n'.join('# ' + x for x in out_str.split('\n'))
                 )
             return in_ + '\n' + out_str
         else:

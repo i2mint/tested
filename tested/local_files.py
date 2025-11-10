@@ -72,8 +72,8 @@ def dir_is_empty(dirpath):
 
 def temp_dirpath(
     subpath: str = DFLT_SUBPATH,
-    ensure_exists: Optional[bool] = True,
-    ensure_is_empty: Optional[bool] = True,
+    ensure_exists: bool | None = True,
+    ensure_is_empty: bool | None = True,
 ):
     """Get a fresh temporary folder path with assurances about existence and emptiness.
 
